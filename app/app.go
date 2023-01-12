@@ -102,6 +102,7 @@ import (
 	"github.com/tendermint/tendermint/libs/log"
 	tmos "github.com/tendermint/tendermint/libs/os"
 	dbm "github.com/tendermint/tm-db"
+	"html/template"
 
 	nucleusmodule "nucleus/x/nucleus"
 	nucleusmodulekeeper "nucleus/x/nucleus/keeper"
@@ -806,6 +807,22 @@ func (app *App) RegisterAPIRoutes(apiSvr *api.Server, apiConfig config.APIConfig
 
 	// register app's OpenAPI routes.
 	apiSvr.Router.Handle("/static/openapi.yml", http.FileServer(http.FS(docs.Docs)))
+	apiSvr.Router.HandleFunc("/", SwaggerPageHandler())
+}
+
+// Handles swagger index template with openapi.yml content
+func SwaggerPageHandler() http.HandlerFunc {
+	template, _ := template.ParseFS(docs.UiTemplate, "static/index.temp")
+
+	return func(w http.ResponseWriter, req *http.Request) {
+		template.Execute(w, struct {
+			PageTitle string
+			URL       string
+		}{
+			"Nucleus Chain - Swagger UI",
+			"/static/openapi.yml",
+		})
+	}
 }
 
 // RegisterTxService implements the Application.RegisterTxService method.

@@ -1,0 +1,12 @@
+syntax = "proto3";
+package nucleus.nucleus;
+
+import "gogoproto/gogo.proto";
+import "nucleus/nucleus/params.proto";
+
+option go_package = "nucleus/x/nucleus/types";
+
+// GenesisState defines the nucleus module's genesis state.
+message GenesisState {
+  Params params = 1 [(gogoproto.nullable) = false];
+}

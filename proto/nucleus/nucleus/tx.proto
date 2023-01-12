@@ -1,0 +1,9 @@
+syntax = "proto3";
+package nucleus.nucleus;
+
+option go_package = "nucleus/x/nucleus/types";
+
+// Msg defines the Msg service.
+service Msg {
+}
+

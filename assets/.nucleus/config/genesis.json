@@ -1,5 +1,5 @@
 {
-  "genesis_time": "2023-01-16T09:59:14.938884486Z",
+  "genesis_time": "2023-01-16T18:33:25.757407526Z",
   "chain_id": "nucleus",
   "initial_height": "1",
   "consensus_params": {
@@ -33,14 +33,14 @@
       "accounts": [
         {
           "@type": "/cosmos.auth.v1beta1.BaseAccount",
-          "address": "nuc1dfsnkeuek0sjdkge0chfv7vksde05xhxms2ze5",
+          "address": "nuc1r2newvd804yftpgw2fj74nrkcrqpxmvygns8mp",
           "pub_key": null,
           "account_number": "0",
           "sequence": "0"
         },
         {
           "@type": "/cosmos.auth.v1beta1.BaseAccount",
-          "address": "nuc1jreuvrju305hja7j0gvggaq63tz08hrdy4l5lz",
+          "address": "nuc1zhslay2lkvckh4vxqyye74dagkr9m0agfchp8g",
           "pub_key": null,
           "account_number": "0",
           "sequence": "0"
@@ -57,34 +57,57 @@
       },
       "balances": [
         {
-          "address": "nuc1dfsnkeuek0sjdkge0chfv7vksde05xhxms2ze5",
+          "address": "nuc1zhslay2lkvckh4vxqyye74dagkr9m0agfchp8g",
           "coins": [
             {
-              "denom": "stake",
-              "amount": "200000000"
-            },
-            {
-              "denom": "token",
-              "amount": "20000"
+              "denom": "unucl",
+              "amount": "100000000"
             }
           ]
         },
         {
-          "address": "nuc1jreuvrju305hja7j0gvggaq63tz08hrdy4l5lz",
+          "address": "nuc1r2newvd804yftpgw2fj74nrkcrqpxmvygns8mp",
           "coins": [
             {
-              "denom": "stake",
-              "amount": "100000000"
-            },
-            {
-              "denom": "token",
-              "amount": "10000"
+              "denom": "unucl",
+              "amount": "200000000"
             }
           ]
         }
       ],
       "supply": [],
-      "denom_metadata": []
+      "denom_metadata": [
+        {
+          "description": "The native staking token of Nucleus.",
+          "denom_units": [
+            {
+              "denom": "unucl",
+              "exponent": 0,
+              "aliases": [
+                "micronucl"
+              ]
+            },
+            {
+              "denom": "mnucl",
+              "exponent": 3,
+              "aliases": [
+                "millinucl"
+              ]
+            },
+            {
+              "denom": "nucl",
+              "exponent": 6,
+              "aliases": []
+            }
+          ],
+          "base": "unucl",
+          "display": "nucl",
+          "name": "",
+          "symbol": "",
+          "uri": "",
+          "uri_hash": ""
+        }
+      ]
     },
     "capability": {
       "index": "1",
@@ -93,7 +116,7 @@
     "crisis": {
       "constant_fee": {
         "amount": "1000",
-        "denom": "stake"
+        "denom": "unucl"
       }
     },
     "distribution": {
@@ -141,19 +164,19 @@
                   "max_change_rate": "0.010000000000000000"
                 },
                 "min_self_delegation": "1",
-                "delegator_address": "nuc1dfsnkeuek0sjdkge0chfv7vksde05xhxms2ze5",
-                "validator_address": "nucvaloper1dfsnkeuek0sjdkge0chfv7vksde05xhxj7lr27",
+                "delegator_address": "nuc1r2newvd804yftpgw2fj74nrkcrqpxmvygns8mp",
+                "validator_address": "nucvaloper1r2newvd804yftpgw2fj74nrkcrqpxmvypa9xgt",
                 "pubkey": {
                   "@type": "/cosmos.crypto.ed25519.PubKey",
-                  "key": "vghI0wec+e4OnsLN4eVVIFlNNouwy12gUmL0aG0mVOw="
+                  "key": "sRxx7q4XP8x24/XSwSPhaAYxlUv2+ECffDx8uEmXVW4="
                 },
                 "value": {
-                  "denom": "stake",
+                  "denom": "unucl",
                   "amount": "100000000"
                 }
               }
             ],
-            "memo": "f6c634dd8f0eb2c378bcb3ebcf8c24f8d4fe39fa@192.168.1.15:26656",
+            "memo": "ad0bc82f6d2c36abdced6ee8777160e77208b11b@192.168.1.15:26656",
             "timeout_height": "0",
             "extension_options": [],
             "non_critical_extension_options": []
@@ -163,7 +186,7 @@
               {
                 "public_key": {
                   "@type": "/cosmos.crypto.secp256k1.PubKey",
-                  "key": "AoIZMFWn4AmrIAV4Yf4gNnAkfzB0TcTNFrp2mtjQn0Wq"
+                  "key": "A5CbN/ieNJH0CkfL0Gn4Z2sicrtgpJ/b/cdPYVhtKOEh"
                 },
                 "mode_info": {
                   "single": {
@@ -182,7 +205,7 @@
             "tip": null
           },
           "signatures": [
-            "fQAeofUfzkO8wexKEIUiyXVtzImFOvbjxZtzLKJ0HKJbhgE8rlByF89wPT1+aMcq9JmOTpeMFdNUOn+hGE80Qw=="
+            "OsDWgoVgpRKxUCOZW//M1S07+yzEFfw6CUe8x/5gQahp7GFLz4cSLqT1YbNuY5EZM6Twi4bqyJrWlk+cHv6Qiw=="
           ]
         }
       ]
@@ -193,7 +216,7 @@
         "min_deposit": [
           {
             "amount": "10000000",
-            "denom": "stake"
+            "denom": "unucl"
           }
         ]
       },
@@ -283,7 +306,7 @@
         "inflation_max": "0.200000000000000000",
         "inflation_min": "0.070000000000000000",
         "inflation_rate_change": "0.130000000000000000",
-        "mint_denom": "stake"
+        "mint_denom": "unucl"
       }
     },
     "nucleus": {
@@ -307,7 +330,7 @@
       "last_total_power": "0",
       "last_validator_powers": [],
       "params": {
-        "bond_denom": "stake",
+        "bond_denom": "unucl",
         "historical_entries": 10000,
         "max_entries": 7,
         "max_validators": 100,

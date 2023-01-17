@@ -41,4 +41,4 @@ if __name__ == "__main__":
     check_if_already_initialized()
     cp_nucleus_configs()
     fill_initial_values()
-    print("Process has been completed.")
+    print("\nConfigurations files generated under " + os.getcwdb().decode() + "/.nucleus")

@@ -37,3 +37,6 @@ tags
 
 ## Persistent undo
 [._]*.un~
+
+# Node configurations
+.nucleus

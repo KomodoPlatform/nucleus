@@ -40,3 +40,4 @@ tags
 
 # Node configurations
 .nucleus
+!.assets/.nucleus

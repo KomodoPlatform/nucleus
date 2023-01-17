@@ -12,6 +12,7 @@ PAIR1 = "alice"
 PAIR2 = "bob"
 MONIKER = "nimda"
 
+DEV_ADDRESS = "nuc1llp0f6qxemgh4g4m5ewk0ew0hxj76avukahzwu"
 
 PAIR1_MNEMONIC = "explain chalk inch snake snack fade news bus horn grant stereo surface panic sister absurd lens speed never inhale element junk senior bubble return"
 # PAIR1_ADDRESS="nuc15d4sf4z6y0vk9dnum8yzkvr9c3wq4q89hzvgjk"
@@ -59,6 +60,9 @@ def init_genesis():
     process_1 = subprocess.run([NUCLEUS_BIN, "keys", "show", "-a", PAIR2, "--keyring-backend=test",
                                "--home="+NUCLEUS_SYSROOT], capture_output=True, text=True, encoding="utf-8")
     subprocess.run([NUCLEUS_BIN, "add-genesis-account", process_1.stdout.strip(),
+                   "10000000000unucl", "--home="+NUCLEUS_SYSROOT])
+
+    subprocess.run([NUCLEUS_BIN, "add-genesis-account", DEV_ADDRESS,
                    "10000000000unucl", "--home="+NUCLEUS_SYSROOT])
 
     subprocess.run([NUCLEUS_BIN,

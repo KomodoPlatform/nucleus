@@ -4,6 +4,9 @@
 *.dll
 *.so
 *.dylib
+**/*
+!**/*.go
+!**/
 
 # Test binary, built with `go test -c`
 *.test
@@ -37,7 +40,3 @@ tags
 
 ## Persistent undo
 [._]*.un~
-
-# Node configurations
-.nucleus
-!.assets/.nucleus

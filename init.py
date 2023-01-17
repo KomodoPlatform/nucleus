@@ -1,44 +1,135 @@
 import json
 import os
+import pathlib
 import shutil
+import subprocess
 
-from datetime import datetime
+NUCLEUS_BIN = "nucleusd"
+NUCLEUS_SYSROOT = str(pathlib.Path.home().joinpath(".nucleus"))
 
-# Untouched version of configurations
-RAW_NUCLEUS_CONFIGS_PATH = "./.assets/.nucleus"
-# Updated version of configurations
-INITIALIZED_NUCLEUS_CONFIGS_PATH = "./.nucleus"
-# genesis.json path for initialization process
-GENESIS_JSON_PATH = "./.nucleus/config/genesis.json"
+CHAIN_ID = "nucleus-1"
+PAIR1 = "alice"
+PAIR2 = "bob"
+MONIKER = "nimda"
+
+
+PAIR1_MNEMONIC = "explain chalk inch snake snack fade news bus horn grant stereo surface panic sister absurd lens speed never inhale element junk senior bubble return"
+# PAIR1_ADDRESS="nuc15d4sf4z6y0vk9dnum8yzkvr9c3wq4q89hzvgjk"
+
+PAIR2_MNEMONIC = "young twist cube soldier sorry false dry actor assault roast mosquito brain fix seat wrong sauce impact smoke expect donkey hard decline polar dinosaur"
+# PAIR2_ADDRESS="nuc1yfygf0zr5s69ces9r0h72hqv23nkqz9nej732n"
 
 
 def check_if_already_initialized():
-    if os.path.isdir(INITIALIZED_NUCLEUS_CONFIGS_PATH):
-        answer = input(os.getcwdb().decode() + "/.nucleus already exists.\n"
-                       + "Type 'yes' if you want to remove it and create fresh configurations: ")
-
+    if os.path.isdir(NUCLEUS_SYSROOT):
+        answer = input(NUCLEUS_SYSROOT + " already exists.\n" +
+                       "Type 'yes' if you want to remove it and create fresh configurations: ")
         if answer.lower() == "yes":
-            shutil.rmtree(INITIALIZED_NUCLEUS_CONFIGS_PATH)
+            shutil.rmtree(NUCLEUS_SYSROOT)
         else:
             print("Aborting!")
             quit()
 
 
-def cp_nucleus_configs():
-    shutil.copytree(RAW_NUCLEUS_CONFIGS_PATH, INITIALIZED_NUCLEUS_CONFIGS_PATH)
+def init_genesis():
+    subprocess.run([NUCLEUS_BIN, "init", MONIKER,
+                   "--chain-id="+CHAIN_ID, "--home="+NUCLEUS_SYSROOT])
+    subprocess.run([NUCLEUS_BIN, "config", "chain-id",
+                   CHAIN_ID, "--home="+NUCLEUS_SYSROOT])
+    subprocess.run([NUCLEUS_BIN, "config", "keyring-backend",
+                   "test", "--home="+NUCLEUS_SYSROOT])
+
+    process_1 = subprocess.Popen(
+        ["echo", PAIR1_MNEMONIC], stdout=subprocess.PIPE)
+    process_2 = subprocess.Popen([NUCLEUS_BIN, "keys", "add", PAIR1, "--keyring-backend=test",
+                                 "--recover", "--home="+NUCLEUS_SYSROOT], stdin=process_1.stdout)
+    process_2.communicate()
+
+    process_1 = subprocess.Popen(
+        ["echo", PAIR2_MNEMONIC], stdout=subprocess.PIPE)
+    process_2 = subprocess.Popen([NUCLEUS_BIN, "keys", "add", PAIR2, "--keyring-backend=test",
+                                 "--recover", "--home="+NUCLEUS_SYSROOT], stdin=process_1.stdout)
+    process_2.communicate()
+
+    process_1 = subprocess.run([NUCLEUS_BIN, "keys", "show", "-a", PAIR1, "--keyring-backend=test",
+                               "--home="+NUCLEUS_SYSROOT], capture_output=True, text=True, encoding="utf-8")
+    subprocess.run([NUCLEUS_BIN, "add-genesis-account", process_1.stdout.strip(),
+                   "10000000000unucl", "--home="+NUCLEUS_SYSROOT])
+
+    process_1 = subprocess.run([NUCLEUS_BIN, "keys", "show", "-a", PAIR2, "--keyring-backend=test",
+                               "--home="+NUCLEUS_SYSROOT], capture_output=True, text=True, encoding="utf-8")
+    subprocess.run([NUCLEUS_BIN, "add-genesis-account", process_1.stdout.strip(),
+                   "10000000000unucl", "--home="+NUCLEUS_SYSROOT])
+
+    subprocess.run([NUCLEUS_BIN,
+                    "gentx",
+                    PAIR1,
+                    "200000000unucl",
+                    "--chain-id="+CHAIN_ID,
+                    "--moniker="+MONIKER,
+                    "--commission-max-change-rate=0.01",
+                    "--commission-max-rate=0.20",
+                    "--commission-rate=0.05",
+                    "--fees=2500unucl",
+                    "--from="+PAIR1,
+                    "--keyring-backend=test",
+                    "--home="+NUCLEUS_SYSROOT])
+
+    subprocess.run([NUCLEUS_BIN, "collect-gentxs", "--home="+NUCLEUS_SYSROOT])
+
+    with open(NUCLEUS_SYSROOT + "/config/genesis.json") as r:
+        text = r.read().replace("stake", "unucl")
+    with open(NUCLEUS_SYSROOT + "/config/genesis.json", "w") as w:
+        w.write(text)
 
 
-def fill_initial_values():
-    with open(GENESIS_JSON_PATH, "r+") as genesis_file:
-        content = json.load(genesis_file)
-        content["genesis_time"] = datetime.utcnow().strftime(
-            '%Y-%m-%dT%H:%M:%S.%fZ')
+def update_app_toml():
+    os.remove(NUCLEUS_SYSROOT + "/config/app.toml")
+    shutil.copyfile("app.toml", NUCLEUS_SYSROOT + "/config/app.toml")
+
+
+def add_denom_metadata():
+    denom_metadata = [{
+        "description": "The native staking token of Nucleus.",
+        "denom_units": [
+            {
+                "denom": "unucl",
+                "exponent": 0,
+                "aliases": [
+                    "micronucl"
+                ]
+            },
+            {
+                "denom": "mnucl",
+                "exponent": 3,
+                "aliases": [
+                    "millinucl"
+                ]
+            },
+            {
+                "denom": "nucl",
+                "exponent": 6,
+                "aliases": []
+            }
+        ],
+        "base": "unucl",
+        "display": "nucl",
+        "name": "",
+        "symbol": "",
+        "uri": "",
+        "uri_hash": ""
+    }]
+
+    with open(NUCLEUS_SYSROOT + "/config/genesis.json", "r+") as genesis_file:
+        data = json.load(genesis_file)
+        data["app_state"]["bank"]["denom_metadata"] = denom_metadata
         genesis_file.seek(0)
-        json.dump(content, genesis_file, indent=2)
+        json.dump(data, genesis_file, indent=2)
 
 
 if __name__ == "__main__":
     check_if_already_initialized()
-    cp_nucleus_configs()
-    fill_initial_values()
-    print("\nConfigurations files generated under " + os.getcwdb().decode() + "/.nucleus")
+    init_genesis()
+    update_app_toml()
+    add_denom_metadata()
+    print("\nConfigurations files generated under " + NUCLEUS_SYSROOT)

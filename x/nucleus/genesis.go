@@ -1,9 +1,10 @@
 package nucleus
 
 import (
-	sdk "github.com/cosmos/cosmos-sdk/types"
 	"nucleus/x/nucleus/keeper"
 	"nucleus/x/nucleus/types"
+
+	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
 // InitGenesis initializes the module's state from a provided genesis state.

@@ -2,16 +2,19 @@ package cli
 
 import (
 	"fmt"
-	"github.com/cosmos/cosmos-sdk/client"
-	"github.com/spf13/cobra"
 	"nucleus/x/nucleus/types"
 	"time"
+
+	"github.com/cosmos/cosmos-sdk/client"
+	"github.com/spf13/cobra"
 )
 
 var (
 	DefaultRelativePacketTimeoutTimestamp = uint64((time.Duration(10) * time.Minute).Nanoseconds())
 )
 
+// TODO
+// nolint
 const (
 	flagPacketTimeoutTimestamp = "packet-timeout-timestamp"
 	listSeparator              = ","

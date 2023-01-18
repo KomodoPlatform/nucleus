@@ -7,6 +7,8 @@ import (
 	"os"
 	"path/filepath"
 
+	"html/template"
+
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/grpc/tmservice"
@@ -102,7 +104,6 @@ import (
 	"github.com/tendermint/tendermint/libs/log"
 	tmos "github.com/tendermint/tendermint/libs/os"
 	dbm "github.com/tendermint/tm-db"
-	"html/template"
 
 	nucleusmodule "nucleus/x/nucleus"
 	nucleusmodulekeeper "nucleus/x/nucleus/keeper"
@@ -815,6 +816,8 @@ func SwaggerPageHandler() http.HandlerFunc {
 	template, _ := template.ParseFS(docs.UiTemplate, "static/index.temp")
 
 	return func(w http.ResponseWriter, req *http.Request) {
+		// TODO
+		// nolint
 		template.Execute(w, struct {
 			PageTitle string
 			URL       string

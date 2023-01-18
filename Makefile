@@ -73,18 +73,12 @@ else
 	go build $(BUILD_FLAGS) -o build/nucleusd ./cmd/nucleusd
 endif
 
-build-amd64: go.sum
-	LEDGER_ENABLED=false GOARCH=amd64 $(MAKE) build
-
-build-arm64: go.sum
-	LEDGER_ENABLED=false GOARCH=arm64 $(MAKE) build
-
 install: go.sum
 	go install -mod=readonly $(BUILD_FLAGS) ./cmd/nucleusd
 
 fmt-check:
 	find . -name '*.go' -type f -not -path "*.git*" | xargs gofmt -d -s
-	find . -name '*.go' -type f -not -path "*.git*" | xargs goimports -d
+	find . -name '*.go' -type f -not -path "*.git*" | xargs goimports -d -e
 
 lint-check:
 	golangci-lint run
@@ -109,7 +103,7 @@ test-race:
 test-cover:
 	@go test -mod=readonly -timeout 30m -race -coverprofile=coverage.txt -covermode=atomic -tags='ledger test_ledger_mock' ./...
 
-test-sim-bench:
+cpu-profile-simulation-test:
 	@VERSION=$(VERSION) go test -benchmem -run ^BenchmarkSimulation -bench ^BenchmarkSimulation ./app -cpuprofile cpu.out -Commit=true -Verbose=true -Enabled=true
 
 .PHONY: build install test check

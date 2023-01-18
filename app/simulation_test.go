@@ -20,6 +20,8 @@ func init() {
 	simapp.GetSimulatorFlags()
 }
 
+// TODO
+// nolint
 var defaultConsensusParams = &abci.ConsensusParams{
 	Block: &abci.BlockParams{
 		MaxBytes: 200000,

@@ -3,11 +3,12 @@ package nucleus_test
 import (
 	"testing"
 
-	"github.com/stretchr/testify/require"
 	keepertest "nucleus/testutil/keeper"
 	"nucleus/testutil/nullify"
 	"nucleus/x/nucleus"
 	"nucleus/x/nucleus/types"
+
+	"github.com/stretchr/testify/require"
 )
 
 func TestGenesis(t *testing.T) {

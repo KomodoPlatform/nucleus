@@ -2,9 +2,10 @@ package cli
 
 import (
 	"fmt"
+	"nucleus/x/nucleus/types"
+
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/spf13/cobra"
-	"nucleus/x/nucleus/types"
 )
 
 // GetQueryCmd returns the cli query commands for this module

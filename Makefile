@@ -1,6 +1,6 @@
 #!/usr/bin/make -f
 
-VERSION := $(shell echo $(shell git describe --tags) | sed 's/^v//')
+VERSION := 0.0.1
 COMMIT := $(shell git log -1 --format='%H')
 LEDGER_ENABLED ?= true
 
@@ -73,13 +73,43 @@ else
 	go build $(BUILD_FLAGS) -o build/nucleusd ./cmd/nucleusd
 endif
 
-build-x86_64: go.sum
+build-amd64: go.sum
 	LEDGER_ENABLED=false GOARCH=amd64 $(MAKE) build
 
-build-arm: go.sum
+build-arm64: go.sum
 	LEDGER_ENABLED=false GOARCH=arm64 $(MAKE) build
 
 install: go.sum
 	go install -mod=readonly $(BUILD_FLAGS) ./cmd/nucleusd
 
-.PHONY: build
+fmt-check:
+	find . -name '*.go' -type f -not -path "*.git*" | xargs gofmt -d -s
+	find . -name '*.go' -type f -not -path "*.git*" | xargs goimports -d
+
+lint-check:
+	golangci-lint run
+
+check:
+	$(MAKE) fmt-check
+	$(MAKE) lint-check
+	go mod verify
+
+benchmark:
+	@go test -mod=readonly -bench=. ./...
+
+test: test-unit
+test-all: test-unit test-race test-cover
+
+test-unit:
+	@VERSION=$(VERSION) go test -mod=readonly -tags='ledger test_ledger_mock' ./...
+
+test-race:
+	@VERSION=$(VERSION) go test -mod=readonly -race -tags='ledger test_ledger_mock' ./...
+
+test-cover:
+	@go test -mod=readonly -timeout 30m -race -coverprofile=coverage.txt -covermode=atomic -tags='ledger test_ledger_mock' ./...
+
+test-sim-bench:
+	@VERSION=$(VERSION) go test -benchmem -run ^BenchmarkSimulation -bench ^BenchmarkSimulation ./app -cpuprofile cpu.out -Commit=true -Verbose=true -Enabled=true
+
+.PHONY: build install test check

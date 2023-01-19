@@ -816,15 +816,17 @@ func SwaggerPageHandler() http.HandlerFunc {
 	template, _ := template.ParseFS(docs.UiTemplate, "static/index.temp")
 
 	return func(w http.ResponseWriter, req *http.Request) {
-		// TODO
-		// nolint
-		template.Execute(w, struct {
+		err := template.Execute(w, struct {
 			PageTitle string
 			URL       string
 		}{
 			"Nucleus Chain - Swagger UI",
 			"/static/openapi.yml",
 		})
+
+		if err != nil {
+			panic(err)
+		}
 	}
 }
 

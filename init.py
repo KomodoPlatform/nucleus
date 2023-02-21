@@ -132,10 +132,27 @@ def add_denom_metadata():
         genesis_file.seek(0)
         json.dump(data, genesis_file, indent=2)
 
+def add_htlc_genesis_config():
+    htlc_genesis_config = {
+        "params": {
+            "asset_params": []
+        },
+        "htlcs": [],
+        "supplies": [],
+        "previous_block_time": "1970-01-01T00:00:01Z"
+    }
+
+    with open(NUCLEUS_SYSROOT + "/config/genesis.json", "r+") as genesis_file:
+        data = json.load(genesis_file)
+        data["app_state"]["htlc"] = htlc_genesis_config
+        genesis_file.seek(0)
+        json.dump(data, genesis_file, indent=2)
 
 if __name__ == "__main__":
     check_if_already_initialized()
     init_genesis()
     update_app_toml()
     add_denom_metadata()
+    add_htlc_genesis_config()
+
     print("\nConfigurations files generated under " + NUCLEUS_SYSROOT)

@@ -3,6 +3,7 @@ package app
 import (
 	"encoding/json"
 	"log"
+	"nucleus/x/htlc"
 
 	servertypes "github.com/cosmos/cosmos-sdk/server/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -189,4 +190,7 @@ func (app *App) prepForZeroHeightGenesis(ctx sdk.Context, jailAllowedAddrs []str
 			return false
 		},
 	)
+
+	htlc.PrepForZeroHeightGenesis(ctx, app.HTLCKeeper)
+
 }

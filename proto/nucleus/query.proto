@@ -4,7 +4,7 @@ package nucleus.nucleus;
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
-import "nucleus/nucleus/params.proto";
+import "nucleus/params.proto";
 
 option go_package = "nucleus/x/nucleus/types";
 

@@ -105,6 +105,10 @@ import (
 	tmos "github.com/tendermint/tendermint/libs/os"
 	dbm "github.com/tendermint/tm-db"
 
+	"nucleus/x/htlc"
+	htlckeeper "nucleus/x/htlc/keeper"
+	htlctypes "nucleus/x/htlc/types"
+
 	nucleusmodule "nucleus/x/nucleus"
 	nucleusmodulekeeper "nucleus/x/nucleus/keeper"
 	nucleusmoduletypes "nucleus/x/nucleus/types"
@@ -162,6 +166,7 @@ var (
 		ica.AppModuleBasic{},
 		vesting.AppModuleBasic{},
 		nucleusmodule.AppModuleBasic{},
+		htlc.AppModuleBasic{},
 	)
 
 	// module account permissions
@@ -174,6 +179,7 @@ var (
 		stakingtypes.NotBondedPoolName: {authtypes.Burner, authtypes.Staking},
 		govtypes.ModuleName:            {authtypes.Burner},
 		ibctransfertypes.ModuleName:    {authtypes.Minter, authtypes.Burner},
+		htlctypes.ModuleName:           {authtypes.Minter, authtypes.Burner},
 	}
 )
 
@@ -222,6 +228,7 @@ type App struct {
 	UpgradeKeeper    upgradekeeper.Keeper
 	ParamsKeeper     paramskeeper.Keeper
 	IBCKeeper        *ibckeeper.Keeper // IBC Keeper must be a pointer in the app, so we can SetRouter on it correctly
+	HTLCKeeper       htlckeeper.Keeper
 	EvidenceKeeper   evidencekeeper.Keeper
 	TransferKeeper   ibctransferkeeper.Keeper
 	ICAHostKeeper    icahostkeeper.Keeper
@@ -278,6 +285,7 @@ func New(
 		ibctransfertypes.StoreKey, icahosttypes.StoreKey, capabilitytypes.StoreKey, group.StoreKey,
 		icacontrollertypes.StoreKey,
 		nucleusmoduletypes.StoreKey,
+		htlctypes.StoreKey,
 	)
 	tkeys := sdk.NewTransientStoreKeys(paramstypes.TStoreKey)
 	memKeys := sdk.NewMemoryStoreKeys(capabilitytypes.MemStoreKey)
@@ -470,6 +478,15 @@ func New(
 		&app.StakingKeeper,
 		app.SlashingKeeper,
 	)
+
+	app.HTLCKeeper = htlckeeper.NewKeeper(
+		appCodec, keys[htlctypes.StoreKey],
+		app.GetSubspace(htlctypes.ModuleName),
+		app.AccountKeeper,
+		app.BankKeeper,
+		app.ModuleAccountAddrs(),
+	)
+
 	// If evidence needs to be handled for the app, set routes in router here and seal
 	app.EvidenceKeeper = *evidenceKeeper
 
@@ -541,6 +558,7 @@ func New(
 		evidence.NewAppModule(app.EvidenceKeeper),
 		ibc.NewAppModule(app.IBCKeeper),
 		params.NewAppModule(app.ParamsKeeper),
+		htlc.NewAppModule(appCodec, app.HTLCKeeper, app.AccountKeeper, app.BankKeeper),
 		transferModule,
 		icaModule,
 		nucleusModule,
@@ -573,6 +591,7 @@ func New(
 		paramstypes.ModuleName,
 		vestingtypes.ModuleName,
 		nucleusmoduletypes.ModuleName,
+		htlctypes.ModuleName,
 	)
 
 	app.mm.SetOrderEndBlockers(
@@ -597,6 +616,7 @@ func New(
 		upgradetypes.ModuleName,
 		vestingtypes.ModuleName,
 		nucleusmoduletypes.ModuleName,
+		htlctypes.ModuleName,
 	)
 
 	// NOTE: The genutils module must occur after staking so that pools are
@@ -626,6 +646,7 @@ func New(
 		upgradetypes.ModuleName,
 		vestingtypes.ModuleName,
 		nucleusmoduletypes.ModuleName,
+		htlctypes.ModuleName,
 	)
 
 	// Uncomment if you want to set a custom migration order here.
@@ -653,6 +674,7 @@ func New(
 		groupmodule.NewAppModule(appCodec, app.GroupKeeper, app.AccountKeeper, app.BankKeeper, app.interfaceRegistry),
 		evidence.NewAppModule(app.EvidenceKeeper),
 		ibc.NewAppModule(app.IBCKeeper),
+		htlc.NewAppModule(appCodec, app.HTLCKeeper, app.AccountKeeper, app.BankKeeper),
 		transferModule,
 		nucleusModule,
 	)
@@ -871,6 +893,7 @@ func initParamsKeeper(appCodec codec.BinaryCodec, legacyAmino *codec.LegacyAmino
 	paramsKeeper.Subspace(icacontrollertypes.SubModuleName)
 	paramsKeeper.Subspace(icahosttypes.SubModuleName)
 	paramsKeeper.Subspace(nucleusmoduletypes.ModuleName)
+	paramsKeeper.Subspace(htlctypes.ModuleName)
 
 	return paramsKeeper
 }

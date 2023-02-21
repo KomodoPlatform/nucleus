@@ -66,6 +66,9 @@ endif
 ldflags += $(LDFLAGS)
 ldflags := $(strip $(ldflags))
 
+clean:
+	rm -rf build
+
 build: go.sum
 ifeq ($(OS),Windows_NT)
 	go build $(BUILD_FLAGS) -o build/nucleusd.exe ./cmd/nucleusd
@@ -75,6 +78,26 @@ endif
 
 install: go.sum
 	go install -mod=readonly $(BUILD_FLAGS) ./cmd/nucleusd
+
+gen-proto:
+	proto_dirs=$$(find ./proto -path -prune -o -name '*.proto' -print0 | xargs -0 -n1 dirname | sort | uniq)
+	for dir in $$proto_dirs; do
+	  protoc \
+	  -I "proto" \
+	  -I "third_party/proto" \
+	  --gocosmos_out=plugins=interfacetype+grpc,\
+	Mgoogle/protobuf/any.proto=github.com/cosmos/cosmos-sdk/codec/types:. \
+	  $$(find "$${dir}" -maxdepth 1 -name '*.proto')
+
+	  # command to generate gRPC gateway (*.pb.gw.go in respective modules) files
+	  protoc \
+	  -I "proto" \
+	  -I "third_party/proto" \
+	  --grpc-gateway_out=logtostderr=true:. \
+	  $$(find "$${dir}" -maxdepth 1 -name '*.proto')
+	done
+	cp -rf ./nucleus/x/* ./x
+	rm -rf ./nucleus
 
 fmt-check:
 	find . -name '*.go' -type f -not -path "*.git*" | xargs gofmt -d -s
@@ -107,3 +130,5 @@ cpu-profile-simulation-test:
 	@VERSION=$(VERSION) go test -benchmem -run ^BenchmarkSimulation -bench ^BenchmarkSimulation ./app -cpuprofile cpu.out -Commit=true -Verbose=true -Enabled=true
 
 .PHONY: build install test check
+.ONESHELL:
+.SILENT:

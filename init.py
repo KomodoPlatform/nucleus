@@ -94,7 +94,13 @@ def update_app_toml():
     shutil.copyfile("app.toml", NUCLEUS_SYSROOT + "/config/app.toml")
 
 
-def add_denom_metadata():
+def update_rpc_host():
+    with open(NUCLEUS_SYSROOT + "/config/config.toml") as r:
+        text = r.read().replace("127.0.0.1:26657", "0.0.0.0:26657")
+    with open(NUCLEUS_SYSROOT + "/config/config.toml", "w") as w:
+        w.write(text)
+
+def add_denom_metadata(data):
     denom_metadata = [{
         "description": "The native staking token of Nucleus.",
         "denom_units": [
@@ -126,13 +132,9 @@ def add_denom_metadata():
         "uri_hash": ""
     }]
 
-    with open(NUCLEUS_SYSROOT + "/config/genesis.json", "r+") as genesis_file:
-        data = json.load(genesis_file)
-        data["app_state"]["bank"]["denom_metadata"] = denom_metadata
-        genesis_file.seek(0)
-        json.dump(data, genesis_file, indent=2)
+    data["app_state"]["bank"]["denom_metadata"] = denom_metadata
 
-def add_htlc_genesis_config():
+def add_htlc_genesis_config(data):
     htlc_genesis_config = {
         "params": {
             "asset_params": []
@@ -142,17 +144,21 @@ def add_htlc_genesis_config():
         "previous_block_time": "1970-01-01T00:00:01Z"
     }
 
-    with open(NUCLEUS_SYSROOT + "/config/genesis.json", "r+") as genesis_file:
-        data = json.load(genesis_file)
-        data["app_state"]["htlc"] = htlc_genesis_config
-        genesis_file.seek(0)
-        json.dump(data, genesis_file, indent=2)
+    data["app_state"]["htlc"] = htlc_genesis_config
 
 if __name__ == "__main__":
     check_if_already_initialized()
     init_genesis()
     update_app_toml()
-    add_denom_metadata()
-    add_htlc_genesis_config()
+    update_rpc_host()
+
+    with open(NUCLEUS_SYSROOT + "/config/genesis.json", "r+") as genesis_file:
+        data = json.load(genesis_file)
+
+        add_denom_metadata(data)
+        add_htlc_genesis_config(data)
+
+        genesis_file.seek(0)
+        json.dump(data, genesis_file, indent=2)
 
     print("\nConfigurations files generated under " + NUCLEUS_SYSROOT)

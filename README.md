@@ -27,31 +27,32 @@ Check `init.py` bootstrapping script and update/add any configuration you want. 
 
 ### Usage
 
-```sh
-# First, initialize `~/.nucleus` (make sure nucleusd is installed befoer executing this)
-python3 init.py
-# or for linux and macos users
-./init.py
+- Simple kickstart
+  ```sh
+  # First, initialize `~/.nucleus` (make sure nucleusd is installed befoer executing this)
+  python3 init.py
+  # or for linux and macos users
+  ./init.py
+  
+  nucleusd start
+  ```
 
-nucleusd start
-```
+- You can also configure systemd service for nucleusd with the following configuration:
+  ```
+  [Unit]
+  Description=Nucleus Deamon
+  After=network-online.target
 
-You can also configure systemd service for nucleusd with the following configuration:
-```
-[Unit]
-Description=Nucleus Deamon
-After=network-online.target
+  [Service]
+  Environment="HOME=${path_to_home}"
+  ExecStart=${path_to_nucleusd_dir}/nucleusd start
+  Restart=always
+  RestartSec=3
+  LimitNOFILE=4096
 
-[Service]
-Environment="HOME=${path_to_home}"
-ExecStart=${path_to_nucleusd_dir}/nucleusd start
-Restart=always
-RestartSec=3
-LimitNOFILE=4096
-
-[Install]
-WantedBy=multi-user.target
-```
+  [Install]
+  WantedBy=multi-user.target
+  ```
 
 
 ## Contribute

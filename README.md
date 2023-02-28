@@ -41,8 +41,8 @@ Description=Nucleus Deamon
 After=network-online.target
 
 [Service]
-Environment="HOME=${PATH_TO_YOUR_HOME}"
-ExecStart=/root/go/bin/nucleusd start
+Environment="HOME=${path_to_home}"
+ExecStart=${path_to_nucleusd_dir}/nucleusd start
 Restart=always
 RestartSec=3
 LimitNOFILE=4096

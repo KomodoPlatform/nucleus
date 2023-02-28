@@ -14,8 +14,10 @@ In order to build nucleus successfuly, you will need `golang(+1.16), gnu make an
 
 ### Installation
 
-- From source code:
+- Build source code:
   ```sh
+  git clone https://github.com/KomodoPlatform/nucleus
+  cd nucleus
   make clean install
   ```
 

@@ -24,6 +24,7 @@ In order to build nucleus successfuly, you will need `golang(+1.16), gnu make an
 Check `init.py` bootstrapping script and update/add any configuration you want. You can also manually utilize everything under `~/.nucleusd` directory.
 
 ### Usage
+
 ```sh
 # First, initialize `~/.nucleus` (make sure nucleusd is installed befoer executing this)
 python3 init.py
@@ -31,7 +32,23 @@ python3 init.py
 ./init.py
 
 nucleusd start
+```
 
+You can also configure systemd service for nucleusd with the following configuration:
+```
+[Unit]
+Description=Nucleus Deamon
+After=network-online.target
+
+[Service]
+Environment="HOME=${PATH_TO_YOUR_HOME}"
+ExecStart=/root/go/bin/nucleusd start
+Restart=always
+RestartSec=3
+LimitNOFILE=4096
+
+[Install]
+WantedBy=multi-user.target
 ```
 
 

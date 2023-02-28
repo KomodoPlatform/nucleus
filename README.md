@@ -53,7 +53,4 @@ Check `init.py` bootstrapping script and update/add any configuration you want. 
   [Install]
   WantedBy=multi-user.target
   ```
-
-
-## Contribute
-## References
+  

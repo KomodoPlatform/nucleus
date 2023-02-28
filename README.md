@@ -8,8 +8,32 @@ The Nucleus interoperability layer is a cutting-edge Inter-Blockchain Communicat
 
 ## Getting Started
 
-### Dependencies
+### Build Dependencies
+
+In order to build nucleus successfuly, you will need `golang(+1.16), gnu make and gcc` to be installed on your system.
+
 ### Installation
+
+- From source code:
+  ```sh
+  make clean install
+  ```
+
+### Configuration
+
+Check `init.py` bootstrapping script and update/add any configuration you want. You can also manually utilize everything under `~/.nucleusd` directory.
+
 ### Usage
+```sh
+# First, initialize `~/.nucleus` (make sure nucleusd is installed befoer executing this)
+python3 init.py
+# or for linux and macos users
+./init.py
+
+nucleusd start
+
+```
+
+
 ## Contribute
 ## References

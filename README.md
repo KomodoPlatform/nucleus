@@ -27,13 +27,15 @@ Check `init.py` bootstrapping script and update/add any configuration you want. 
 
 ### Usage
 
-- Simple kickstart
+- First, initialize `~/.nucleus` (make sure nucleusd is installed befoer executing this)
   ```sh
-  # First, initialize `~/.nucleus` (make sure nucleusd is installed befoer executing this)
   python3 init.py
   # or for linux and macos users
   ./init.py
-  
+  ```
+
+- Simple kickstart
+  ```sh
   nucleusd start
   ```
 

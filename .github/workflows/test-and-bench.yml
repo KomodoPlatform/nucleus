@@ -17,28 +17,14 @@ jobs:
           go-version: 1.19.4
           cache: true
           cache-dependency-path: go.sum
-      - uses: technote-space/get-diff-action@v6.1.2
-        id: git_diff
-        with:
-          PATTERNS: |
-            **/*.go
-            go.mod
-            go.sum
-            **/go.mod
-            **/go.sum
-            **/Makefile
-            Makefile
 
       - name: test unit
-        if: env.GIT_DIFF
         run: make test-unit
 
       - name: test race
-        if: env.GIT_DIFF
         run: make test-race
 
       - name: test coverage
-        if: env.GIT_DIFF
         run: make test-cover
 
   benchmarks:
@@ -50,22 +36,9 @@ jobs:
           go-version: 1.19.4
           cache: true
           cache-dependency-path: go.sum
-      - uses: technote-space/get-diff-action@v6.1.2
-        id: git_diff
-        with:
-          PATTERNS: |
-            **/*.go
-            go.mod
-            go.sum
-            **/go.mod
-            **/go.sum
-            **/Makefile
-            Makefile
 
       - name: benchmark all tests
-        if: env.GIT_DIFF
         run: make benchmark
 
       # - name: cpu-profile sim-test
-      #   if: env.GIT_DIFF
       #   run: make cpu-profile-simulation-test

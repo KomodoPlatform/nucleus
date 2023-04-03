@@ -35,27 +35,9 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, data types.GenesisState) {
 			panic(fmt.Sprintf("htlc %s has invalid status %s", htlc.Id, htlc.State.String()))
 		}
 
-		if !htlc.Transfer {
-			k.SetHTLC(ctx, htlc, id)
-			k.AddHTLCToExpiredQueue(ctx, htlc.ExpirationHeight, id)
-			continue
-		}
 
-		// htlt assets must be both supported and active
-		if err := k.ValidateLiveAsset(ctx, htlc.Amount[0]); err != nil {
-			panic(err.Error())
-		}
 		k.SetHTLC(ctx, htlc, id)
 		k.AddHTLCToExpiredQueue(ctx, htlc.ExpirationHeight, id)
-
-		switch htlc.Direction {
-		case types.Incoming:
-			incomingSupplies = incomingSupplies.Add(htlc.Amount...)
-		case types.Outgoing:
-			outgoingSupplies = outgoingSupplies.Add(htlc.Amount...)
-		default:
-			panic(fmt.Sprintf("htlt %s has invalid direction %s", htlc.Id, htlc.Direction.String()))
-		}
 	}
 
 	// Asset's given incoming/outgoing supply much match the amount of coins in incoming/outgoing HTLTs

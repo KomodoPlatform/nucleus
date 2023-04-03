@@ -25,24 +25,18 @@ var (
 func NewMsgCreateHTLC(
 	sender string,
 	to string,
-	receiverOnOtherChain string,
-	senderOnOtherChain string,
 	amount sdk.Coins,
 	hashLock string,
 	timestamp uint64,
 	timeLock uint64,
-	transfer bool,
 ) MsgCreateHTLC {
 	return MsgCreateHTLC{
 		Sender:               sender,
 		To:                   to,
-		ReceiverOnOtherChain: receiverOnOtherChain,
-		SenderOnOtherChain:   senderOnOtherChain,
 		Amount:               amount,
 		HashLock:             hashLock,
 		Timestamp:            timestamp,
 		TimeLock:             timeLock,
-		Transfer:             transfer,
 	}
 }
 
@@ -62,15 +56,7 @@ func (msg MsgCreateHTLC) ValidateBasic() error {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid recipient address (%s)", err)
 	}
 
-	if err := ValidateReceiverOnOtherChain(msg.ReceiverOnOtherChain); err != nil {
-		return err
-	}
-
-	if err := ValidateSenderOnOtherChain(msg.SenderOnOtherChain); err != nil {
-		return err
-	}
-
-	if err := ValidateAmount(msg.Transfer, msg.Amount); err != nil {
+	if err := ValidateAmount(msg.Amount); err != nil {
 		return err
 	}
 

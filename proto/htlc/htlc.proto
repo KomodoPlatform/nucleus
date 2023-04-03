@@ -15,10 +15,6 @@ message HTLC {
   string id = 1;
   string sender = 2;
   string to = 3;
-  string receiver_on_other_chain = 4
-      [ (gogoproto.moretags) = "yaml:\"receiver_on_other_chain\"" ];
-  string sender_on_other_chain = 5
-      [ (gogoproto.moretags) = "yaml:\"sender_on_other_chain\"" ];
   repeated cosmos.base.v1beta1.Coin amount = 6 [
     (gogoproto.nullable) = false,
     (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"
@@ -30,8 +26,6 @@ message HTLC {
       [ (gogoproto.moretags) = "yaml:\"expiration_height\"" ];
   HTLCState state = 11;
   uint64 closed_block = 12 [ (gogoproto.moretags) = "yaml:\"closed_block\"" ];
-  bool transfer = 13;
-  SwapDirection direction = 14;
 }
 
 // HTLCState defines the state of an HTLC
@@ -44,18 +38,6 @@ enum HTLCState {
   HTLC_STATE_COMPLETED = 1 [ (gogoproto.enumvalue_customname) = "Completed" ];
   // HTLC_STATE_REFUNDED defines a refunded state.
   HTLC_STATE_REFUNDED = 2 [ (gogoproto.enumvalue_customname) = "Refunded" ];
-}
-
-// SwapDirection defines the direction of an HTLT
-enum SwapDirection {
-  option (gogoproto.goproto_enum_prefix) = false;
-
-  // NONE defines an htlt none direction.
-  NONE = 0 [ (gogoproto.enumvalue_customname) = "None" ];
-  // INCOMING defines an htlt incoming direction.
-  INCOMING = 1 [ (gogoproto.enumvalue_customname) = "Incoming" ];
-  // OUTGOING defines an htlt outgoing direction.
-  OUTGOING = 2 [ (gogoproto.enumvalue_customname) = "Outgoing" ];
 }
 
 message AssetSupply {

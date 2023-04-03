@@ -1,11 +1,11 @@
 name: Test & Benchmark
-on:
-  pull_request:
-  push:
-    branches:
-      - main
+on: [push]
 permissions:
   contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   tests:

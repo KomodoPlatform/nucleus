@@ -12,10 +12,6 @@ import (
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
 )
 
-const (
-	FormatHTLTAssetPrefix = "htlt"
-)
-
 // Parameter store keys
 var (
 	KeyAssetParams = []byte("AssetParams") // asset params key
@@ -96,7 +92,6 @@ func validateAssetParams(i interface{}) error {
 	coinDenoms := make(map[string]bool)
 	for _, asset := range assetParams {
 		if err := sdk.ValidateDenom(asset.Denom); err != nil ||
-			!strings.HasPrefix(asset.Denom, FormatHTLTAssetPrefix) ||
 			strings.ToLower(asset.Denom) != asset.Denom ||
 			len(asset.Denom) < MinDenomLength {
 			return fmt.Errorf(fmt.Sprintf("invalid asset denom: %s", asset.Denom))

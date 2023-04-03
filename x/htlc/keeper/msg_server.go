@@ -94,7 +94,7 @@ func (m msgServer) ClaimHTLC(goCtx context.Context, msg *types.MsgClaimHTLC) (*t
 	}
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
-	hashLock, transfer, direction, err := m.Keeper.ClaimHTLC(ctx, id, secret)
+	hashLock, err := m.Keeper.ClaimHTLC(ctx, id, secret)
 	if err != nil {
 		return nil, err
 	}
@@ -106,8 +106,6 @@ func (m msgServer) ClaimHTLC(goCtx context.Context, msg *types.MsgClaimHTLC) (*t
 			sdk.NewAttribute(types.AttributeKeyHashLock, hashLock),
 			sdk.NewAttribute(types.AttributeKeySender, msg.Sender),
 			sdk.NewAttribute(types.AttributeKeySecret, msg.Secret),
-			sdk.NewAttribute(types.AttributeKeyTransfer, strconv.FormatBool(transfer)),
-			sdk.NewAttribute(types.AttributeKeyDirection, direction.String()),
 		),
 		sdk.NewEvent(
 			sdk.EventTypeMessage,

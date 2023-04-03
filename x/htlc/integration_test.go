@@ -4,7 +4,6 @@ import (
 	"math/rand"
 	"time"
 
-	"cosmossdk.io/math"
 	"github.com/tendermint/tendermint/crypto"
 	"github.com/tendermint/tendermint/crypto/secp256k1"
 
@@ -18,15 +17,7 @@ var (
 	MinTimeLock          uint64 = 220
 	MaxTimeLock          uint64 = 270
 	TestDeputy                  = sdk.AccAddress(crypto.AddressHash([]byte("TestDeputy")))
-	ReceiverOnOtherChain        = "ReceiverOnOtherChain"
-	SenderOnOtherChain          = "SenderOnOtherChain"
 )
-
-// TODO
-// nolint
-func i(in int64) math.Int {
-	return math.NewInt(in)
-}
 
 // TODO
 // nolint
@@ -44,64 +35,6 @@ func cs(coins ...sdk.Coin) sdk.Coins {
 // nolint
 func ts(minOffset int) uint64 {
 	return uint64(time.Now().Add(time.Duration(minOffset) * time.Minute).Unix())
-}
-
-func NewHTLTGenesis(deputyAddress sdk.AccAddress) *types.GenesisState {
-	return &types.GenesisState{
-		Params: types.Params{
-			AssetParams: []types.AssetParam{
-				{
-					Denom: "htltbnb",
-					SupplyLimit: types.SupplyLimit{
-						Limit:          sdk.NewInt(350000000000000),
-						TimeLimited:    false,
-						TimeBasedLimit: sdk.ZeroInt(),
-						TimePeriod:     time.Hour,
-					},
-					Active:        true,
-					DeputyAddress: TestDeputy.String(),
-					FixedFee:      sdk.NewInt(1000),
-					MinSwapAmount: sdk.OneInt(),
-					MaxSwapAmount: sdk.NewInt(1000000000000),
-					MinBlockLock:  MinTimeLock,
-					MaxBlockLock:  MaxTimeLock,
-				},
-				{
-					Denom: "htltinc",
-					SupplyLimit: types.SupplyLimit{
-						Limit:          sdk.NewInt(100000000000),
-						TimeLimited:    false,
-						TimeBasedLimit: sdk.ZeroInt(),
-						TimePeriod:     time.Hour,
-					},
-					Active:        true,
-					DeputyAddress: TestDeputy.String(),
-					FixedFee:      sdk.NewInt(1000),
-					MinSwapAmount: sdk.OneInt(),
-					MaxSwapAmount: sdk.NewInt(1000000000000),
-					MinBlockLock:  MinTimeLock,
-					MaxBlockLock:  MaxTimeLock,
-				},
-			},
-		},
-		Supplies: []types.AssetSupply{
-			types.NewAssetSupply(
-				sdk.NewCoin("htltbnb", sdk.ZeroInt()),
-				sdk.NewCoin("htltbnb", sdk.ZeroInt()),
-				sdk.NewCoin("htltbnb", sdk.ZeroInt()),
-				sdk.NewCoin("htltbnb", sdk.ZeroInt()),
-				time.Duration(0),
-			),
-			types.NewAssetSupply(
-				sdk.NewCoin("htltinc", sdk.ZeroInt()),
-				sdk.NewCoin("htltinc", sdk.ZeroInt()),
-				sdk.NewCoin("htltinc", sdk.ZeroInt()),
-				sdk.NewCoin("htltinc", sdk.ZeroInt()),
-				time.Duration(0),
-			),
-		},
-		PreviousBlockTime: types.DefaultPreviousBlockTime,
-	}
 }
 
 // GeneratePrivKeyAddressPairsFromRand generates (deterministically) a total of n secp256k1 private keys and addresses.
@@ -142,8 +75,6 @@ func loadSwapAndSupply(addr sdk.AccAddress, index int) (types.HTLC, types.AssetS
 		id,
 		addr,
 		addr,
-		ReceiverOnOtherChain,
-		SenderOnOtherChain,
 		amount,
 		randomHashLock,
 		[]byte{},
@@ -151,8 +82,6 @@ func loadSwapAndSupply(addr sdk.AccAddress, index int) (types.HTLC, types.AssetS
 		expireOffset,
 		types.Open,
 		1,
-		true,
-		types.Incoming,
 	)
 
 	supply := types.NewAssetSupply(

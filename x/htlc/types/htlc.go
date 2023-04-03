@@ -16,8 +16,6 @@ func NewHTLC(
 	id tmbytes.HexBytes,
 	sender sdk.AccAddress,
 	to sdk.AccAddress,
-	receiverOnOtherChain string,
-	senderOnOtherChain string,
 	amount sdk.Coins,
 	hashLock tmbytes.HexBytes,
 	secret tmbytes.HexBytes,
@@ -25,15 +23,11 @@ func NewHTLC(
 	expirationHeight uint64,
 	state HTLCState,
 	closedBlock uint64,
-	transfer bool,
-	direction SwapDirection,
 ) HTLC {
 	return HTLC{
 		Id:                   id.String(),
 		Sender:               sender.String(),
 		To:                   to.String(),
-		ReceiverOnOtherChain: receiverOnOtherChain,
-		SenderOnOtherChain:   senderOnOtherChain,
 		Amount:               amount,
 		HashLock:             hashLock.String(),
 		Secret:               secret.String(),
@@ -41,8 +35,6 @@ func NewHTLC(
 		ExpirationHeight:     expirationHeight,
 		State:                state,
 		ClosedBlock:          closedBlock,
-		Transfer:             transfer,
-		Direction:            direction,
 	}
 }
 
@@ -60,19 +52,13 @@ func (h HTLC) Validate() error {
 	if _, err := sdk.AccAddressFromBech32(h.To); err != nil {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid recipient address (%s)", err)
 	}
-	if err := ValidateReceiverOnOtherChain(h.ReceiverOnOtherChain); err != nil {
-		return err
-	}
-	if err := ValidateSenderOnOtherChain(h.SenderOnOtherChain); err != nil {
-		return err
-	}
 	if h.ExpirationHeight == 0 {
 		return sdkerrors.Wrapf(ErrInvalidExpirationHeight, "expire height cannot be 0")
 	}
 	if h.Timestamp == 0 {
 		return sdkerrors.Wrapf(ErrInvalidTimestamp, "timestamp cannot be 0")
 	}
-	if err := ValidateAmount(h.Transfer, h.Amount); err != nil {
+	if err := ValidateAmount(h.Amount); err != nil {
 		return err
 	}
 	if h.State > Refunded {
@@ -80,12 +66,6 @@ func (h HTLC) Validate() error {
 	}
 	if h.State == Completed && h.ClosedBlock == 0 {
 		return sdkerrors.Wrapf(ErrInvalidClosedBlock, "closed block cannot be 0")
-	}
-	if !h.Transfer && h.Direction != 0 {
-		return sdkerrors.Wrapf(ErrInvalidDirection, "invalid htlc direction")
-	}
-	if h.Transfer && (h.Direction < Incoming || h.Direction > Outgoing) {
-		return sdkerrors.Wrapf(ErrInvalidDirection, "invalid htlt direction")
 	}
 	if h.State != Completed && len(h.Secret) > 0 {
 		return sdkerrors.Wrapf(ErrInvalidSecret, "secret must be empty when the HTLC has not be claimed")

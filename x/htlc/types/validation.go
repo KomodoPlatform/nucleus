@@ -20,31 +20,12 @@ const (
 	MinTimeLock = 50
 	// MaxTimeLock is the maximum time span for HTLC in blocks
 	MaxTimeLock = 34560
-	// MinDenomLength is the min length of the htlt token denom
+	// MinDenomLength is the min length of the token denom
 	MinDenomLength = 6
 )
 
-// ValidateReceiverOnOtherChain verifies if the receiver on the other chain is legal
-func ValidateReceiverOnOtherChain(receiverOnOtherChain string) error {
-	if len(receiverOnOtherChain) > MaxLengthForAddressOnOtherChain {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "length of the receiver on other chain must be between [0,%d]", MaxLengthForAddressOnOtherChain)
-	}
-	return nil
-}
-
-// ValidateSenderOnOtherChain verifies if the receiver on the other chain is legal
-func ValidateSenderOnOtherChain(senderOnOtherChain string) error {
-	if len(senderOnOtherChain) > MaxLengthForAddressOnOtherChain {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "length of the sender on other chain must be between [0,%d]", MaxLengthForAddressOnOtherChain)
-	}
-	return nil
-}
-
 // ValidateAmount verifies whether the given amount is legal
-func ValidateAmount(transfer bool, amount sdk.Coins) error {
-	if transfer && len(amount) != 1 {
-		return sdkerrors.Wrapf(ErrInvalidAmount, "amount %s must contain exactly one coin", amount.String())
-	}
+func ValidateAmount(amount sdk.Coins) error {
 	if !(amount.IsValid() && amount.IsAllPositive()) {
 		return sdkerrors.Wrap(sdkerrors.ErrInvalidCoins, "the transferred amount must be valid")
 	}

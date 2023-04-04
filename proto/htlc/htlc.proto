@@ -15,17 +15,17 @@ message HTLC {
   string id = 1;
   string sender = 2;
   string to = 3;
-  repeated cosmos.base.v1beta1.Coin amount = 6 [
+  repeated cosmos.base.v1beta1.Coin amount = 4 [
     (gogoproto.nullable) = false,
     (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"
   ];
-  string hash_lock = 7 [ (gogoproto.moretags) = "yaml:\"hash_lock\"" ];
-  string secret = 8;
-  uint64 timestamp = 9;
-  uint64 expiration_height = 10
+  string hash_lock = 5 [ (gogoproto.moretags) = "yaml:\"hash_lock\"" ];
+  string secret = 6;
+  uint64 timestamp = 7;
+  uint64 expiration_height = 8
       [ (gogoproto.moretags) = "yaml:\"expiration_height\"" ];
-  HTLCState state = 11;
-  uint64 closed_block = 12 [ (gogoproto.moretags) = "yaml:\"closed_block\"" ];
+  HTLCState state = 9;
+  uint64 closed_block = 10 [ (gogoproto.moretags) = "yaml:\"closed_block\"" ];
 }
 
 // HTLCState defines the state of an HTLC

@@ -17,13 +17,10 @@ func (k Keeper) CreateHTLC(
 	ctx sdk.Context,
 	sender sdk.AccAddress,
 	to sdk.AccAddress,
-	receiverOnOtherChain string,
-	senderOnOtherChain string,
 	amount sdk.Coins,
 	hashLock tmbytes.HexBytes,
 	timestamp uint64,
 	timeLock uint64,
-	transfer bool,
 ) (
 	id tmbytes.HexBytes,
 	err error,

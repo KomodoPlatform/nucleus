@@ -63,8 +63,6 @@ func SimulateMsgCreateHtlc(k keeper.Keeper, ak types.AccountKeeper, bk types.Ban
 
 		sender, _ := simtypes.RandomAcc(r, accs)
 		to, _ := simtypes.RandomAcc(r, accs)
-		recvOnOtherChain, _ := simtypes.RandomAcc(r, accs)
-		senderOnOtherChain, _ := simtypes.RandomAcc(r, accs)
 
 		account := ak.GetAccount(ctx, sender.Address)
 		spendable := bk.SpendableCoins(ctx, account.GetAddress())
@@ -85,17 +83,13 @@ func SimulateMsgCreateHtlc(k keeper.Keeper, ak types.AccountKeeper, bk types.Ban
 		minLock := int(assert.MinBlockLock)
 		maxLock := int(assert.MaxBlockLock)
 		timeLock := uint64(simtypes.RandIntBetween(r, minLock, maxLock))
-		tranfer := false
 		msg := &types.MsgCreateHTLC{
 			Sender:               sender.Address.String(),
 			To:                   to.Address.String(),
-			ReceiverOnOtherChain: recvOnOtherChain.Address.String(),
-			SenderOnOtherChain:   senderOnOtherChain.Address.String(),
 			Amount:               amount,
 			HashLock:             hashLock,
 			Timestamp:            timestamp,
 			TimeLock:             timeLock,
-			Transfer:             tranfer,
 		}
 
 		fees, err := simtypes.RandomFees(r, ctx, balance)

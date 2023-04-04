@@ -32199,10 +32199,6 @@ paths:
                     type: string
                   to:
                     type: string
-                  receiver_on_other_chain:
-                    type: string
-                  sender_on_other_chain:
-                    type: string
                   amount:
                     type: array
                     items:
@@ -32245,20 +32241,6 @@ paths:
                   closed_block:
                     type: string
                     format: uint64
-                  transfer:
-                    type: boolean
-                  direction:
-                    type: string
-                    enum:
-                      - NONE
-                      - INCOMING
-                      - OUTGOING
-                    default: NONE
-                    description: |-
-                      - NONE: NONE defines an htlt none direction.
-                       - INCOMING: INCOMING defines an htlt incoming direction.
-                       - OUTGOING: OUTGOING defines an htlt outgoing direction.
-                    title: SwapDirection defines the direction of an HTLT
                 title: HTLC defines the struct of an HTLC
             title: >-
               QueryBalanceResponse is the response type for the Query/HTLC RPC
@@ -74777,10 +74759,6 @@ definitions:
         type: string
       to:
         type: string
-      receiver_on_other_chain:
-        type: string
-      sender_on_other_chain:
-        type: string
       amount:
         type: array
         items:
@@ -74820,20 +74798,6 @@ definitions:
       closed_block:
         type: string
         format: uint64
-      transfer:
-        type: boolean
-      direction:
-        type: string
-        enum:
-          - NONE
-          - INCOMING
-          - OUTGOING
-        default: NONE
-        description: |-
-          - NONE: NONE defines an htlt none direction.
-           - INCOMING: INCOMING defines an htlt incoming direction.
-           - OUTGOING: OUTGOING defines an htlt outgoing direction.
-        title: SwapDirection defines the direction of an HTLT
     title: HTLC defines the struct of an HTLC
   nucleus.htlc.HTLCState:
     type: string
@@ -75043,10 +75007,6 @@ definitions:
             type: string
           to:
             type: string
-          receiver_on_other_chain:
-            type: string
-          sender_on_other_chain:
-            type: string
           amount:
             type: array
             items:
@@ -75089,20 +75049,6 @@ definitions:
           closed_block:
             type: string
             format: uint64
-          transfer:
-            type: boolean
-          direction:
-            type: string
-            enum:
-              - NONE
-              - INCOMING
-              - OUTGOING
-            default: NONE
-            description: |-
-              - NONE: NONE defines an htlt none direction.
-               - INCOMING: INCOMING defines an htlt incoming direction.
-               - OUTGOING: OUTGOING defines an htlt outgoing direction.
-            title: SwapDirection defines the direction of an HTLT
         title: HTLC defines the struct of an HTLC
     title: QueryBalanceResponse is the response type for the Query/HTLC RPC method
   nucleus.htlc.QueryParamsResponse:
@@ -75158,15 +75104,3 @@ definitions:
         type: string
       time_based_limit:
         type: string
-  nucleus.htlc.SwapDirection:
-    type: string
-    enum:
-      - NONE
-      - INCOMING
-      - OUTGOING
-    default: NONE
-    description: |-
-      - NONE: NONE defines an htlt none direction.
-       - INCOMING: INCOMING defines an htlt incoming direction.
-       - OUTGOING: OUTGOING defines an htlt outgoing direction.
-    title: SwapDirection defines the direction of an HTLT

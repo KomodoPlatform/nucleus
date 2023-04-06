@@ -44,6 +44,8 @@
   - [Nucleus Mainnet](#nucleus-mainnet)
   - [Providing Contribution Guideline](#providing-contribution-guideline)
   - [Future Development](#future-development)
+- [Implementation Details/Specifications](#implementation-details--specifications)
+  - [Hashed Timelock Contract (HTLC)](#hashed-timelock-contract-htlc)
 - [Conclusion](#conclusion)
 - [References](#references)
 - [Authors](#authors)
@@ -325,6 +327,70 @@ We welcome contributions from anyone who wants to improve it. To ensure smooth c
 
 Nucleus will continue to be developed in phases, with plans to expand support for additional blockchain protocols, create a mobile app for convenient on-the-go access, and enhance the governance layer to promote community involvement and platform growth.
 
+# Implementation Details / Specifications
+
+### Hashed Timelock Contract (HTLC)
+
+HTLC is a protocol used in cryptocurrencies to enable secure transactions between two pairs. It uses a time lock and a cryptographic hash of a secret value to ensure that the transaction only happens if certain conditions are met. Because HTLCs are primarly used for performing atomic swaps in [atomicDEX-API](https://github.com/KomodoPlatform/atomicDEX-API), we implemented it in Nucleus as well.
+
+In our implementation, we decided use [iris HTLC](https://www.irisnet.org/docs/features/htlc.html) as a starting implementation point and then utilize/change/refactor based on our needs.
+
+`HTLC` defines the core fields of an HTLC implementation
+
+```go
+type HTLC struct {
+    Id                   string
+    Sender               string
+    To                   string
+    Amount               skd.Coins
+    HashLock             string
+    Secret               string
+    Timestamp            uint64
+    ExpirationHeight     uint64
+    State                HTLCState
+    ClosedBlock          uint64
+}
+```
+
+`HTLCState` defines the state of an HTLC
+
+- `HTLC_STATE_OPEN` defines an open state
+- `HTLC_STATE_COMPLETED` defines a completed state
+- `HTLC_STATE_REFUNDED` defines a refunded state
+
+```go
+type HTLCState int32
+const (
+    // HTLC_STATE_OPEN defines an open state.
+    Open HTLCState = 0
+    // HTLC_STATE_COMPLETED defines a completed state.
+    Completed HTLCState = 1
+    // HTLC_STATE_REFUNDED defines a refunded state.
+    Refunded HTLCState = 2
+)
+var HTLCState_name = map[int32]string{
+    0: "HTLC_STATE_OPEN",
+    1: "HTLC_STATE_COMPLETED",
+    2: "HTLC_STATE_REFUNDED",
+}
+var HTLCState_value = map[string]int32{
+    "HTLC_STATE_OPEN":      0,
+    "HTLC_STATE_COMPLETED": 1,
+    "HTLC_STATE_REFUNDED":  2,
+}
+```
+
+`AssetSupply` contains information about an asset's supply
+
+```go
+type AssetSupply struct {
+    IncomingSupply           sdk.Coin
+    OutgoingSupply           sdk.Coin
+    CurrentSupply            sdk.Coin
+    TimeLimitedCurrentSupply sdk.Coin
+    TimeElapsed              time.Duration
+}
+```
 
 # Conclusion
 

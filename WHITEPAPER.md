@@ -331,6 +331,19 @@ Nucleus will continue to be developed in phases, with plans to expand support fo
 
 # Project Layout
 
+The `app/` directory connects the blockchain components and includes the app.go file defining the blockchain type and its functions.
+
+The `cmd/` directory defines the command-line interface of the compiled binary for users to interact with the blockchain.
+
+The `docs/` directory stores project documentation, including the OpenAPI specification file.
+
+The `proto/` directory contains protocol buffer files that define the data structures used by the blockchain.
+
+The `testutil/` directory provides helper functions for testing.
+
+The `x/` directory contains custom modules specific to the blockchain project.
+
+Complete directory tree:
 ```sh
 ├── app
 │   └── params

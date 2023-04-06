@@ -1,54 +1,55 @@
 # Nucleus: Expanding the IBC Interoperability Layer
 
-- [Abstract](#abstract)
-- [Introduction](#introduction)
-- [Features](#features)
-  - [Advanced Cross-Protocol DEX](#advanced-cross-protocol-dex)
-  - [True Interoperability](#true-interoperability)
-  - [Keplr Wallet and Authentication Support](#keplr-wallet-and-authentication-support)
-  - [Innovative Smart Order Routing](#innovative-smart-order-routing)
-  - [Flexible Staking Options](#flexible-staking-options)
-  - [Staking and Validator Nodes](#staking-and-validator-nodes)
-  - [Validator Nodes](#validator-nodes)
-  - [Delegation](#delegation)
-  - [Staking](#staking)
-  - [Unbonding Period](#unbonding-period)
-  - [Slashing](#slashing)
-  - [User-Friendly Interface](#user-friendly-interface)
-  - [Comprehensive Liquidity Solutions](#comprehensive-liquidity-solutions)
-  - [Versatile Liquidity Multiplier Feature](#versatile-liquidity-multiplier-feature)
-  - [Robust Security Measures](#robust-security-measures)
-  - [Incremental Releases and Continuous Improvement](#incremental-releases-and-continuous-improvement)
-  - [Community-Driven Development](#community-driven-development)
-  - [Mobile Applications](#mobile-applications)
-  - [API Access and Integration](#api-access-and-integration)
-  - [Wallet Integration](#wallet-integration)
-  - [Comprehensive Documentation and Support](#comprehensive-documentation-and-support)
-- [Tokenomics](#tokenomics)
-  - [Initial Coincap](#initial-coincap)
-  - [Staking Rewards](#staking-rewards)
-  - [Community Fund and Strategic Reserve Allocation](#community-fund-and-strategic-reserve-allocation)
-  - [No Liquidity Mining](#no-liquidity-mining)
-- [Governance](#governance)
-  - [Decentralized Autonomous Organization (DAO)](#decentralized-autonomous-organization-dao)
-  - [Voting Rights](#voting-rights)
-  - [Delegation](#delegation-1)
-  - [Proposal and Voting Mechanism](#proposal-and-voting-mechanism)
-  - [Timely Execution of Decisions](#timely-execution-of-decisions)
-- [Roadmap](#roadmap)
-  - [Full Planning and Design](#full-planning-and-design)
-  - [Nucleus Testnet](#nucleus-testnet)
-  - [Gitbook Documentation](#gitbook-documentation)
-  - [Keplr Integration](#keplr-integration)
-  - [Overall optimization and more unit, integration & simulation tests](#overall-optimization-and-more-unit-integration--simulation-tests)
-  - [Nucleus Mainnet](#nucleus-mainnet)
-  - [Providing Contribution Guideline](#providing-contribution-guideline)
-  - [Future Development](#future-development)
-- [Implementation Details/Specifications](#implementation-details--specifications)
-  - [Hashed Timelock Contract (HTLC)](#hashed-timelock-contract-htlc)
-- [Conclusion](#conclusion)
-- [References](#references)
-- [Authors](#authors)
+* [Abstract](#abstract)
+* [Introduction](#introduction)
+* [Features](#features)
+  * [Advanced Cross-Protocol DEX](#advanced-cross-protocol-dex)
+  * [True Interoperability](#true-interoperability)
+  * [Keplr Wallet and Authentication Support](#keplr-wallet-and-authentication-support)
+  * [Innovative Smart Order Routing](#innovative-smart-order-routing)
+  * [Flexible Staking Options](#flexible-staking-options)
+  * [Staking and Validator Nodes](#staking-and-validator-nodes)
+  * [Validator Nodes](#validator-nodes)
+  * [Delegation](#delegation)
+  * [Staking](#staking)
+  * [Unbonding Period](#unbonding-period)
+  * [Slashing](#slashing)
+  * [User-Friendly Interface](#user-friendly-interface)
+  * [Comprehensive Liquidity Solutions](#comprehensive-liquidity-solutions)
+  * [Versatile Liquidity Multiplier Feature](#versatile-liquidity-multiplier-feature)
+  * [Robust Security Measures](#robust-security-measures)
+  * [Incremental Releases and Continuous Improvement](#incremental-releases-and-continuous-improvement)
+  * [Community-Driven Development](#community-driven-development)
+  * [Mobile Applications](#mobile-applications)
+  * [API Access and Integration](#api-access-and-integration)
+  * [Wallet Integration](#wallet-integration)
+  * [Comprehensive Documentation and Support](#comprehensive-documentation-and-support)
+* [Tokenomics](#tokenomics)
+  * [Initial Coincap](#initial-coincap)
+  * [Staking Rewards](#staking-rewards)
+  * [Community Fund and Strategic Reserve Allocation](#community-fund-and-strategic-reserve-allocation)
+  * [No Liquidity Mining](#no-liquidity-mining)
+* [Governance](#governance)
+  * [Decentralized Autonomous Organization (DAO)](#decentralized-autonomous-organization-dao)
+  * [Voting Rights](#voting-rights)
+  * [Delegation](#delegation-1)
+  * [Proposal and Voting Mechanism](#proposal-and-voting-mechanism)
+  * [Timely Execution of Decisions](#timely-execution-of-decisions)
+* [Roadmap](#roadmap)
+  * [Full Planning and Design](#full-planning-and-design)
+  * [Nucleus Testnet](#nucleus-testnet)
+  * [Gitbook Documentation](#gitbook-documentation)
+  * [Keplr Integration](#keplr-integration)
+  * [Overall optimization and more unit, integration & simulation tests](#overall-optimization-and-more-unit-integration--simulation-tests)
+  * [Nucleus Mainnet](#nucleus-mainnet)
+  * [Providing Contribution Guideline](#providing-contribution-guideline)
+  * [Future Development](#future-development)
+* [Implementation Details/Specifications](#implementation-details--specifications)
+  * [Core Layer](#core-layer)
+  * [Hashed Timelock Contract (HTLC)](#hashed-timelock-contract-htlc)
+* [Conclusion](#conclusion)
+* [References](#references)
+* [Authors](#authors)
 
 
 # Abstract
@@ -328,6 +329,28 @@ We welcome contributions from anyone who wants to improve it. To ensure smooth c
 Nucleus will continue to be developed in phases, with plans to expand support for additional blockchain protocols, create a mobile app for convenient on-the-go access, and enhance the governance layer to promote community involvement and platform growth.
 
 # Implementation Details / Specifications
+
+### Core Layer
+
+The core layer is implemented on top of the [cosmos-sdk(v0.46.6)](https://github.com/cosmos/cosmos-sdk/tree/v0.46.6).
+
+Implemented modules are as the followings:
+
+* [Auth](https://github.com/cosmos/cosmos-sdk/blob/v0.46.6/x/auth/spec/README.md) - Authentication of accounts and transactions for Nucleus.
+* [Authz](https://github.com/cosmos/cosmos-sdk/blob/v0.46.6/x/authz/spec/README.md) - Authorization for accounts to perform actions on behalf of other accounts.
+* [Bank](https://github.com/cosmos/cosmos-sdk/blob/v0.46.6/x/bank/spec/README.md) - Token transfer functionalities.
+* [Distribution](https://github.com/cosmos/cosmos-sdk/blob/v0.46.6/x/distribution/spec/README.md) - Fee distribution, and staking token provision distribution.
+* [Evidence](https://github.com/cosmos/cosmos-sdk/blob/v0.46.6/x/evidence/spec/README.md) - Evidence handling for double signing, misbehaviour, etc.
+* [Feegrant](https://github.com/cosmos/cosmos-sdk/blob/v0.46.6/x/feegrant/spec/README.md) - Grant fee allowances for executing transactions.
+* [Governance](https://github.com/cosmos/cosmos-sdk/blob/v0.46.6/x/gov/spec/README.md) - On-chain proposals and voting.
+* [Group](https://github.com/cosmos/cosmos-sdk/blob/v0.46.6/x/group/spec/README.md) - Allows the creation and management of on-chain multisig accounts and enables voting for message execution based on configurable decision policies.
+* [Mint](https://github.com/cosmos/cosmos-sdk/blob/v0.46.6/x/mint/spec/README.md) - Creation of new units of staking token.
+* [Params](https://github.com/cosmos/cosmos-sdk/blob/v0.46.6/x/params/spec/README.md) - Globally available parameter store.
+* [Slashing](https://github.com/cosmos/cosmos-sdk/blob/v0.46.6/x/slashing/spec/README.md) - Validator punishment mechanisms.
+* [Staking](https://github.com/cosmos/cosmos-sdk/blob/v0.46.6/x/staking/spec/README.md) - Proof-of-Stake layer for public blockchains.
+* [Upgrade](https://github.com/cosmos/cosmos-sdk/blob/v0.46.6/x/upgrade/spec/README.md) - Software upgrades handling and coordination.
+
+* [IBC](https://github.com/cosmos/ibc-go/blob/v5.1.0/modules/core/spec/01_concepts.md#concepts) Allows cosmos chains to communicate each other.
 
 ### Hashed Timelock Contract (HTLC)
 

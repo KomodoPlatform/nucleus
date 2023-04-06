@@ -44,6 +44,7 @@
   * [Nucleus Mainnet](#nucleus-mainnet)
   * [Providing Contribution Guideline](#providing-contribution-guideline)
   * [Future Development](#future-development)
+* [Project Layout](#project-layout)
 * [Implementation Details/Specifications](#implementation-details--specifications)
   * [Core Layer](#core-layer)
   * [Hashed Timelock Contract (HTLC)](#hashed-timelock-contract-htlc)
@@ -327,6 +328,52 @@ We welcome contributions from anyone who wants to improve it. To ensure smooth c
 ### Future Development: 
 
 Nucleus will continue to be developed in phases, with plans to expand support for additional blockchain protocols, create a mobile app for convenient on-the-go access, and enhance the governance layer to promote community involvement and platform growth.
+
+# Project Layout
+
+```sh
+├── app
+│   └── params
+├── cmd
+│   └── nucleusd
+│       └── cmd
+├── docs
+│   └── static
+├── proto
+│   ├── htlc
+│   └── nucleus
+├── testutil
+│   ├── keeper
+│   ├── network
+│   ├── nullify
+│   └── sample
+├── third_party
+│   └── proto
+│       ├── cosmos
+│       │   └── base
+│       │       ├── query
+│       │       │   └── v1beta1
+│       │       └── v1beta1
+│       ├── cosmos_proto
+│       ├── gogoproto
+│       └── google
+│           ├── api
+│           └── protobuf
+└── x
+    ├── htlc
+    │   ├── client
+    │   │   ├── cli
+    │   │   └── testutil
+    │   ├── keeper
+    │   ├── simulation
+    │   └── types
+    └── nucleus
+        ├── client
+        │   └── cli
+        ├── keeper
+        ├── simulation
+        └── types
+```
 
 # Implementation Details / Specifications
 

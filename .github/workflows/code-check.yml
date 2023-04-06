@@ -1,11 +1,11 @@
 name: Lint & Format, and module checks
-on:
-  pull_request:
-  push:
-    branches:
-      - main
+on: [push]
 permissions:
   contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   code-checks:
@@ -39,23 +39,9 @@ jobs:
           # Optional: if set to true then the action don't cache or restore ~/go/pkg.
           # skip-pkg-cache: true
 
-      - uses: technote-space/get-diff-action@v6.1.2
-        id: git_diff
-        with:
-          PATTERNS: |
-            **/*.go
-            go.mod
-            go.sum
-            **/go.mod
-            **/go.sum
-            **/Makefile
-            Makefile
-
       - name: install required tools
-        if: env.GIT_DIFF
         run: |
           go install golang.org/x/tools/cmd/goimports@latest
 
       - name: lint & format, and module check
-        if: env.GIT_DIFF
         run: make check

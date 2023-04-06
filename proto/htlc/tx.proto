@@ -22,18 +22,13 @@ message MsgCreateHTLC {
 
   string sender = 1;
   string to = 2;
-  string receiver_on_other_chain = 3
-      [ (gogoproto.moretags) = "yaml:\"receiver_on_other_chain\"" ];
-  string sender_on_other_chain = 4
-      [ (gogoproto.moretags) = "yaml:\"sender_on_other_chain\"" ];
-  repeated cosmos.base.v1beta1.Coin amount = 5 [
+  repeated cosmos.base.v1beta1.Coin amount = 3 [
     (gogoproto.nullable) = false,
     (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"
   ];
-  string hash_lock = 6 [ (gogoproto.moretags) = "yaml:\"hash_lock\"" ];
-  uint64 timestamp = 7;
-  uint64 time_lock = 8 [ (gogoproto.moretags) = "yaml:\"time_lock\"" ];
-  bool transfer = 9;
+  string hash_lock = 4 [ (gogoproto.moretags) = "yaml:\"hash_lock\"" ];
+  uint64 timestamp = 5;
+  uint64 time_lock = 6 [ (gogoproto.moretags) = "yaml:\"time_lock\"" ];
 }
 
 // MsgCreateHTLCResponse defines the Msg/CreateHTLC response type

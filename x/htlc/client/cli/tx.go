@@ -72,16 +72,6 @@ func GetCmdCreateHTLC() *cobra.Command {
 				return err
 			}
 
-			receiverOnOtherChain, err := cmd.Flags().GetString(FlagReceiverOnOtherChain)
-			if err != nil {
-				return err
-			}
-
-			senderOnOtherChain, err := cmd.Flags().GetString(FlagSenderOnOtherChain)
-			if err != nil {
-				return err
-			}
-
 			amountStr, err := cmd.Flags().GetString(FlagAmount)
 			if err != nil {
 				return err
@@ -98,11 +88,6 @@ func GetCmdCreateHTLC() *cobra.Command {
 			}
 
 			timeLock, err := cmd.Flags().GetUint64(FlagTimeLock)
-			if err != nil {
-				return err
-			}
-
-			transfer, err := cmd.Flags().GetBool(FlagTransfer)
 			if err != nil {
 				return err
 			}
@@ -129,9 +114,8 @@ func GetCmdCreateHTLC() *cobra.Command {
 			}
 
 			msg := types.NewMsgCreateHTLC(
-				sender.String(), toAddr, receiverOnOtherChain,
-				senderOnOtherChain, amount, hex.EncodeToString(hashLock),
-				timestamp, timeLock, transfer,
+				sender.String(), toAddr, amount, hex.EncodeToString(hashLock),
+				timestamp, timeLock,
 			)
 			if err := msg.ValidateBasic(); err != nil {
 				return err

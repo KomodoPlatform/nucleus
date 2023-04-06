@@ -79,6 +79,14 @@ endif
 install: go.sum
 	go install -mod=readonly $(BUILD_FLAGS) ./cmd/nucleusd
 
+# Make sure following packages are installed in the system
+# - protobuf
+# - protobuf-devel  (or dev)
+# - libprotoc-devel (or dev)
+
+# Install `protoc-gen-gocosmos` and `protoc-gen-grpc-gateway` from source
+# go install github.com/regen-network/cosmos-proto/protoc-gen-gocosmos
+# go install github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway@v1.16.0
 gen-proto:
 	proto_dirs=$$(find ./proto -path -prune -o -name '*.proto' -print0 | xargs -0 -n1 dirname | sort | uniq)
 	for dir in $$proto_dirs; do

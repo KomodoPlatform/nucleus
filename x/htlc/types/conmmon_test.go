@@ -46,8 +46,6 @@ func htlc(index int) types.HTLC {
 		id,
 		sender,
 		recipient,
-		receiverOnOtherChain,
-		senderOnOtherChain,
 		amount,
 		randomHashLock,
 		[]byte{},
@@ -55,8 +53,6 @@ func htlc(index int) types.HTLC {
 		expireOffset,
 		types.Open,
 		1,
-		true,
-		types.Incoming,
 	)
 
 	return htlc

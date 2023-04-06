@@ -1,11 +1,11 @@
 name: Build & Install
-on:
-  pull_request:
-  push:
-    branches:
-      - main
+on: [push]
 permissions:
   contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build-and-install:
@@ -18,22 +18,9 @@ jobs:
       - uses: actions/setup-go@v3
         with:
           go-version: 1.19.4
-      - uses: technote-space/get-diff-action@v6.1.2
-        id: git_diff
-        with:
-          PATTERNS: |
-            **/*.go
-            go.mod
-            go.sum
-            **/go.mod
-            **/go.sum
-            **/Makefile
-            Makefile
 
       - name: Build
-        if: env.GIT_DIFF
         run: GOARCH=${{ matrix.go-arch }} make build
 
       - name: Install
-        if: env.GIT_DIFF
         run: make install

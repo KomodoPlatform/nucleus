@@ -7,10 +7,11 @@ import (
 
 	tmbytes "github.com/tendermint/tendermint/libs/bytes"
 
+	"cosmos/cosmos-sdk/simapp/helpers"
+	simappparams "cosmos/cosmos-sdk/simapp/params"
+
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/cosmos/cosmos-sdk/simapp/helpers"
-	simappparams "github.com/cosmos/cosmos-sdk/simapp/params"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
 	"github.com/cosmos/cosmos-sdk/x/simulation"
@@ -84,12 +85,12 @@ func SimulateMsgCreateHtlc(k keeper.Keeper, ak types.AccountKeeper, bk types.Ban
 		maxLock := int(assert.MaxBlockLock)
 		timeLock := uint64(simtypes.RandIntBetween(r, minLock, maxLock))
 		msg := &types.MsgCreateHTLC{
-			Sender:               sender.Address.String(),
-			To:                   to.Address.String(),
-			Amount:               amount,
-			HashLock:             hashLock,
-			Timestamp:            timestamp,
-			TimeLock:             timeLock,
+			Sender:    sender.Address.String(),
+			To:        to.Address.String(),
+			Amount:    amount,
+			HashLock:  hashLock,
+			Timestamp: timestamp,
+			TimeLock:  timeLock,
 		}
 
 		fees, err := simtypes.RandomFees(r, ctx, balance)

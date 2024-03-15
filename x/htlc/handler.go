@@ -4,8 +4,8 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 
-	"nucleus/x/htlc/keeper"
-	"nucleus/x/htlc/types"
+	"github.com/komodoplatform/nucleus/x/htlc/keeper"
+	"github.com/komodoplatform/nucleus/x/htlc/types"
 )
 
 // NewHandler creates an sdk.Handler for all the HTLC type messages

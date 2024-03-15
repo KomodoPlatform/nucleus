@@ -10,9 +10,9 @@ import (
 
 	abci "github.com/tendermint/tendermint/abci/types"
 
-	"nucleus/x/nucleus/client/cli"
-	"nucleus/x/nucleus/keeper"
-	"nucleus/x/nucleus/types"
+	"github.com/komodoplatform/nucleus/x/nucleus/client/cli"
+	"github.com/komodoplatform/nucleus/x/nucleus/keeper"
+	"github.com/komodoplatform/nucleus/x/nucleus/types"
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/codec"

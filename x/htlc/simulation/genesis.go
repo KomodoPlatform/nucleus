@@ -9,7 +9,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/types/module"
 	"github.com/tendermint/tendermint/crypto"
 
-	"nucleus/x/htlc/types"
+	"github.com/komodoplatform/nucleus/x/htlc/types"
 )
 
 var (

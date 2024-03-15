@@ -11,7 +11,7 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"nucleus/x/htlc/types"
+	"github.com/komodoplatform/nucleus/x/htlc/types"
 )
 
 var (
@@ -101,7 +101,7 @@ func TestMsgCreateHTLCGetSignBytes(t *testing.T) {
 	msg := types.NewMsgCreateHTLC(senderStr, recipientStr, amount, hashLockStr, timestamp, timeLock)
 	res := msg.GetSignBytes()
 
-	expected := `{"type":"nucleus/htlc/MsgCreateHTLC","value":{"amount":[{"amount":"10","denom":"stake"}],"hash_lock":"6F4ECE9B22CFC1CF39C9C73DD2D35867A8EC97C48A9C2F664FE5287865A18C2E","sender":"cosmos1pgm8hyk0pvphmlvfjc8wsvk4daluz5tgmr4lac","time_lock":"50","timestamp":"1580000000","to":"cosmos1vewsdxxmeraett7ztsaym88jsrv85kzm8ekjsg"}}`
+	expected := `{"type":"github.com/komodoplatform/nucleus/htlc/MsgCreateHTLC","value":{"amount":[{"amount":"10","denom":"stake"}],"hash_lock":"6F4ECE9B22CFC1CF39C9C73DD2D35867A8EC97C48A9C2F664FE5287865A18C2E","sender":"cosmos1pgm8hyk0pvphmlvfjc8wsvk4daluz5tgmr4lac","time_lock":"50","timestamp":"1580000000","to":"cosmos1vewsdxxmeraett7ztsaym88jsrv85kzm8ekjsg"}}`
 	require.Equal(t, expected, string(res))
 }
 
@@ -173,7 +173,7 @@ func TestMsgClaimHTLCGetSignBytes(t *testing.T) {
 	msg := types.NewMsgClaimHTLC(senderStr, idStr, secretStr)
 	res := msg.GetSignBytes()
 
-	expected := `{"type":"nucleus/htlc/MsgClaimHTLC","value":{"id":"B94EFE2C859EDADE7F3F6CAF5D7A1CE388D65B9E63CB6CE0B824117F117695A7","secret":"2BB80D537B1DA3E38BD30361AA855686BDE0EACD7162FEF6A25FE97BF527A25B","sender":"cosmos1pgm8hyk0pvphmlvfjc8wsvk4daluz5tgmr4lac"}}`
+	expected := `{"type":"github.com/komodoplatform/nucleus/htlc/MsgClaimHTLC","value":{"id":"B94EFE2C859EDADE7F3F6CAF5D7A1CE388D65B9E63CB6CE0B824117F117695A7","secret":"2BB80D537B1DA3E38BD30361AA855686BDE0EACD7162FEF6A25FE97BF527A25B","sender":"cosmos1pgm8hyk0pvphmlvfjc8wsvk4daluz5tgmr4lac"}}`
 	require.Equal(t, expected, string(res))
 }
 

@@ -105,16 +105,16 @@ import (
 	tmos "github.com/tendermint/tendermint/libs/os"
 	dbm "github.com/tendermint/tm-db"
 
-	"nucleus/x/htlc"
-	htlckeeper "nucleus/x/htlc/keeper"
-	htlctypes "nucleus/x/htlc/types"
+	"github.com/komodoplatform/nucleus/x/htlc"
+	htlckeeper "github.com/komodoplatform/nucleus/x/htlc/keeper"
+	htlctypes "github.com/komodoplatform/nucleus/x/htlc/types"
 
-	nucleusmodule "nucleus/x/nucleus"
-	nucleusmodulekeeper "nucleus/x/nucleus/keeper"
-	nucleusmoduletypes "nucleus/x/nucleus/types"
+	nucleusmodule "github.com/komodoplatform/nucleus/x/nucleus"
+	nucleusmodulekeeper "github.com/komodoplatform/nucleus/x/nucleus/keeper"
+	nucleusmoduletypes "github.com/komodoplatform/nucleus/x/nucleus/types"
 
-	appparams "nucleus/app/params"
-	"nucleus/docs"
+	appparams "github.com/komodoplatform/nucleus/app/params"
+	"github.com/komodoplatform/nucleus/docs"
 )
 
 const (

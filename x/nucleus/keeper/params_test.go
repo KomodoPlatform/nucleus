@@ -3,8 +3,8 @@ package keeper_test
 import (
 	"testing"
 
-	testkeeper "nucleus/testutil/keeper"
-	"nucleus/x/nucleus/types"
+	testkeeper "github.com/komodoplatform/nucleus/testutil/keeper"
+	"github.com/komodoplatform/nucleus/x/nucleus/types"
 
 	"github.com/stretchr/testify/require"
 )

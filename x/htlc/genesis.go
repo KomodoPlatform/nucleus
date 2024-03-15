@@ -7,8 +7,8 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	tmbytes "github.com/tendermint/tendermint/libs/bytes"
 
-	"nucleus/x/htlc/keeper"
-	"nucleus/x/htlc/types"
+	"github.com/komodoplatform/nucleus/x/htlc/keeper"
+	"github.com/komodoplatform/nucleus/x/htlc/types"
 )
 
 // InitGenesis stores the genesis state

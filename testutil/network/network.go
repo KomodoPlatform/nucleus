@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"nucleus/app"
+	"github.com/komodoplatform/nucleus/app"
 
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	"github.com/cosmos/cosmos-sdk/crypto/hd"

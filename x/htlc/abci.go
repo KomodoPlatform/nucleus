@@ -7,13 +7,13 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"nucleus/x/htlc/keeper"
-	"nucleus/x/htlc/types"
+	"github.com/komodoplatform/nucleus/x/htlc/keeper"
+	"github.com/komodoplatform/nucleus/x/htlc/types"
 )
 
 // BeginBlocker handles block beginning logic for HTLC
 func BeginBlocker(ctx sdk.Context, k keeper.Keeper) {
-	ctx = ctx.WithLogger(ctx.Logger().With("handler", "beginBlock").With("module", "nucleus/htlc"))
+	ctx = ctx.WithLogger(ctx.Logger().With("handler", "beginBlock").With("module", "github.com/komodoplatform/nucleus/htlc"))
 
 	currentBlockHeight := uint64(ctx.BlockHeight())
 	k.IterateHTLCExpiredQueueByHeight(

@@ -4,9 +4,9 @@ import (
 	"context"
 	"testing"
 
-	keepertest "nucleus/testutil/keeper"
-	"nucleus/x/nucleus/keeper"
-	"nucleus/x/nucleus/types"
+	keepertest "github.com/komodoplatform/nucleus/testutil/keeper"
+	"github.com/komodoplatform/nucleus/x/nucleus/keeper"
+	"github.com/komodoplatform/nucleus/x/nucleus/types"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )

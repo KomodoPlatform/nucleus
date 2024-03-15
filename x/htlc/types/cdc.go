@@ -21,8 +21,8 @@ func init() {
 }
 
 func RegisterLegacyAminoCodec(cdc *codec.LegacyAmino) {
-	cdc.RegisterConcrete(&MsgCreateHTLC{}, "nucleus/htlc/MsgCreateHTLC", nil)
-	cdc.RegisterConcrete(&MsgClaimHTLC{}, "nucleus/htlc/MsgClaimHTLC", nil)
+	cdc.RegisterConcrete(&MsgCreateHTLC{}, "github.com/komodoplatform/nucleus/htlc/MsgCreateHTLC", nil)
+	cdc.RegisterConcrete(&MsgClaimHTLC{}, "github.com/komodoplatform/nucleus/htlc/MsgClaimHTLC", nil)
 }
 
 func RegisterInterfaces(registry types.InterfaceRegistry) {

@@ -3,8 +3,8 @@ package keeper
 import (
 	"testing"
 
-	"nucleus/x/nucleus/keeper"
-	"nucleus/x/nucleus/types"
+	"github.com/komodoplatform/nucleus/x/nucleus/keeper"
+	"github.com/komodoplatform/nucleus/x/nucleus/types"
 
 	"github.com/cosmos/cosmos-sdk/codec"
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"

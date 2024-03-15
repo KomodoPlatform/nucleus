@@ -10,7 +10,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/testutil"
 	clitestutil "github.com/cosmos/cosmos-sdk/testutil/cli"
 
-	htlccli "nucleus/x/htlc/client/cli"
+	htlccli "github.com/komodoplatform/nucleus/x/htlc/client/cli"
 )
 
 // MsgRedelegateExec creates a redelegate message.

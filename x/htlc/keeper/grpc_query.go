@@ -9,7 +9,7 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"nucleus/x/htlc/types"
+	"github.com/komodoplatform/nucleus/x/htlc/types"
 )
 
 var _ types.QueryServer = Keeper{}

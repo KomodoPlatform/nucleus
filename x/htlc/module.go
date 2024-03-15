@@ -19,10 +19,10 @@ import (
 	"github.com/cosmos/cosmos-sdk/types/module"
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
 
-	"nucleus/x/htlc/client/cli"
-	"nucleus/x/htlc/keeper"
-	"nucleus/x/htlc/simulation"
-	"nucleus/x/htlc/types"
+	"github.com/komodoplatform/nucleus/x/htlc/client/cli"
+	"github.com/komodoplatform/nucleus/x/htlc/keeper"
+	"github.com/komodoplatform/nucleus/x/htlc/simulation"
+	"github.com/komodoplatform/nucleus/x/htlc/types"
 )
 
 var (

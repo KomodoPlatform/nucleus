@@ -3,9 +3,9 @@ package nucleus
 import (
 	"math/rand"
 
-	"nucleus/testutil/sample"
-	nucleussimulation "nucleus/x/nucleus/simulation"
-	"nucleus/x/nucleus/types"
+	"github.com/komodoplatform/nucleus/testutil/sample"
+	nucleussimulation "github.com/komodoplatform/nucleus/x/nucleus/simulation"
+	"github.com/komodoplatform/nucleus/x/nucleus/types"
 
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	simappparams "github.com/cosmos/cosmos-sdk/simapp/params"

@@ -9,7 +9,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 
-	"nucleus/x/htlc/types"
+	"github.com/komodoplatform/nucleus/x/htlc/types"
 )
 
 // CreateHTLC creates an HTLC

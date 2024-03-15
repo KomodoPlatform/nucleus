@@ -15,8 +15,8 @@ import (
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
 	"github.com/cosmos/cosmos-sdk/x/simulation"
 
-	"nucleus/x/htlc/keeper"
-	"nucleus/x/htlc/types"
+	"github.com/komodoplatform/nucleus/x/htlc/keeper"
+	"github.com/komodoplatform/nucleus/x/htlc/types"
 )
 
 // Simulation operation weights constants

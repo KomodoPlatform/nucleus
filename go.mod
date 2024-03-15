@@ -1,4 +1,4 @@
-module nucleus
+module github.com/komodoplatform/nucleus
 
 go 1.18
 

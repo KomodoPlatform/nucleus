@@ -14,7 +14,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/version"
 
-	"nucleus/x/htlc/types"
+	"github.com/komodoplatform/nucleus/x/htlc/types"
 )
 
 // NewTxCmd returns the transaction commands for this module

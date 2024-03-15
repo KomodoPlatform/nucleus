@@ -3,10 +3,10 @@ package nucleus_test
 import (
 	"testing"
 
-	keepertest "nucleus/testutil/keeper"
-	"nucleus/testutil/nullify"
-	"nucleus/x/nucleus"
-	"nucleus/x/nucleus/types"
+	keepertest "github.com/komodoplatform/nucleus/testutil/keeper"
+	"github.com/komodoplatform/nucleus/testutil/nullify"
+	"github.com/komodoplatform/nucleus/x/nucleus"
+	"github.com/komodoplatform/nucleus/x/nucleus/types"
 
 	"github.com/stretchr/testify/require"
 )

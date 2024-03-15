@@ -1,8 +1,8 @@
 package nucleus
 
 import (
-	"nucleus/x/nucleus/keeper"
-	"nucleus/x/nucleus/types"
+	"github.com/komodoplatform/nucleus/x/nucleus/keeper"
+	"github.com/komodoplatform/nucleus/x/nucleus/types"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )

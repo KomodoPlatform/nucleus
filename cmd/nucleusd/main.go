@@ -6,8 +6,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/server"
 	svrcmd "github.com/cosmos/cosmos-sdk/server/cmd"
 
-	"nucleus/app"
-	"nucleus/cmd/nucleusd/cmd"
+	"github.com/komodoplatform/nucleus/app"
+	"github.com/komodoplatform/nucleus/cmd/nucleusd/cmd"
 )
 
 func main() {

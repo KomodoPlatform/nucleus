@@ -1,7 +1,7 @@
 package keeper
 
 import (
-	"nucleus/x/nucleus/types"
+	"github.com/komodoplatform/nucleus/x/nucleus/types"
 )
 
 type msgServer struct {

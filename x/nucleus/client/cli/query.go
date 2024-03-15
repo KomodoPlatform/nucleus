@@ -2,7 +2,7 @@ package cli
 
 import (
 	"fmt"
-	"nucleus/x/nucleus/types"
+	"github.com/komodoplatform/nucleus/x/nucleus/types"
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/spf13/cobra"

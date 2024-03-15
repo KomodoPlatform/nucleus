@@ -3,7 +3,7 @@ package types_test
 import (
 	"testing"
 
-	"nucleus/x/nucleus/types"
+	"github.com/komodoplatform/nucleus/x/nucleus/types"
 
 	"github.com/stretchr/testify/require"
 )

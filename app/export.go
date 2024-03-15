@@ -3,7 +3,7 @@ package app
 import (
 	"encoding/json"
 	"log"
-	"nucleus/x/htlc"
+	"github.com/komodoplatform/nucleus/x/htlc"
 
 	servertypes "github.com/cosmos/cosmos-sdk/server/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"

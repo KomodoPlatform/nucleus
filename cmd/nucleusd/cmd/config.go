@@ -3,7 +3,7 @@ package cmd
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"nucleus/app"
+	"github.com/komodoplatform/nucleus/app"
 )
 
 func initSDKConfig() {

@@ -11,7 +11,7 @@ import (
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	paramstypes "github.com/cosmos/cosmos-sdk/x/params/types"
 
-	"nucleus/x/htlc/types"
+	"github.com/komodoplatform/nucleus/x/htlc/types"
 )
 
 // Keeper defines the HTLC keeper
@@ -55,7 +55,7 @@ func NewKeeper(
 
 // Logger returns a module-specific logger
 func (k Keeper) Logger(ctx sdk.Context) log.Logger {
-	return ctx.Logger().With("module", fmt.Sprintf("nucleus/%s", types.ModuleName))
+	return ctx.Logger().With("module", fmt.Sprintf("github.com/komodoplatform/nucleus/%s", types.ModuleName))
 }
 
 // GetHTLCAccount returns the HTLC module account

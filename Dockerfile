@@ -6,7 +6,8 @@ COPY . /nucleus
 RUN rm -rf .git && git init
 RUN go mod tidy && go mod download
 RUN make clean & make build
-RUN ls -la /nucleus/build && ls -la /nucleus && python3 ./init.py -b /nucleus/build/nucleusd -c /root/.nucleus --overwrite 
+RUN python3 ./init.py -b /nucleus/build/nucleusd -c /root/.nucleus --overwrite 
+COPY addrbook.json /root/.nucleus/config/addrbook.json
 
 FROM alpine:latest
 WORKDIR /nucleus

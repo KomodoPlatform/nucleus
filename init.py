@@ -5,22 +5,7 @@ import os
 import pathlib
 import shutil
 import subprocess
-
-NUCLEUS_BIN = "nucleusd"
-NUCLEUS_SYSROOT = str(pathlib.Path.home().joinpath(".nucleus"))
-
-CHAIN_ID = "nucleus-1"
-PAIR1 = "alice"
-PAIR2 = "bob"
-MONIKER = "nimda"
-
-DEV_ADDRESS = "nuc1llp0f6qxemgh4g4m5ewk0ew0hxj76avukahzwu"
-
-PAIR1_MNEMONIC = "explain chalk inch snake snack fade news bus horn grant stereo surface panic sister absurd lens speed never inhale element junk senior bubble return"
-# PAIR1_ADDRESS="nuc15d4sf4z6y0vk9dnum8yzkvr9c3wq4q89hzvgjk"
-
-PAIR2_MNEMONIC = "young twist cube soldier sorry false dry actor assault roast mosquito brain fix seat wrong sauce impact smoke expect donkey hard decline polar dinosaur"
-# PAIR2_ADDRESS="nuc1yfygf0zr5s69ces9r0h72hqv23nkqz9nej732n"
+import argparse
 
 
 def check_if_already_initialized():
@@ -147,7 +132,34 @@ def add_htlc_genesis_config(data):
     data["app_state"]["htlc"] = htlc_genesis_config
 
 if __name__ == "__main__":
-    check_if_already_initialized()
+
+    CHAIN_ID = "nucleus-1"
+    PAIR1 = "alice"
+    PAIR2 = "bob"
+    MONIKER = "nimda"
+
+    DEV_ADDRESS = "nuc1llp0f6qxemgh4g4m5ewk0ew0hxj76avukahzwu"
+
+    PAIR1_MNEMONIC = "explain chalk inch snake snack fade news bus horn grant stereo surface panic sister absurd lens speed never inhale element junk senior bubble return"
+    # PAIR1_ADDRESS="nuc15d4sf4z6y0vk9dnum8yzkvr9c3wq4q89hzvgjk"
+
+    PAIR2_MNEMONIC = "young twist cube soldier sorry false dry actor assault roast mosquito brain fix seat wrong sauce impact smoke expect donkey hard decline polar dinosaur"
+    # PAIR2_ADDRESS="nuc1yfygf0zr5s69ces9r0h72hqv23nkqz9nej732n"
+
+    parser = argparse.ArgumentParser(description="Download API module file for specified version and platform.")
+    # Optional arguments
+    parser.add_argument("-b", "--bin", help="path to nucleusd binary", default="nucleusd")
+    parser.add_argument("-c", "--config", help="path to nucleusd configs", default=str(pathlib.Path.home().joinpath(".nucleus")))
+    parser.add_argument("--overwrite", help="overwrites existing configs", action="store_true")
+    args = parser.parse_args()
+
+    NUCLEUS_BIN = args.bin
+    NUCLEUS_SYSROOT = args.config
+    
+    # TODO: Add argparse support for custom chain id, moniker, mnemonic, dev address
+
+    if not args.overwrite:
+        check_if_already_initialized()
     init_genesis()
     update_app_toml()
     update_rpc_host()

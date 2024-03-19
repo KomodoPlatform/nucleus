@@ -4,7 +4,7 @@ WORKDIR /nucleus
 COPY . /nucleus
 RUN rm -rf .git && git init
 RUN go mod tidy && go mod download
-RUN make clean & make build
+RUN make clean build
 RUN python3 ./init.py -b /nucleus/build/nucleusd -c /root/.nucleus --overwrite 
 COPY addrbook.json /root/.nucleus/config/addrbook.json
 

@@ -1,4 +1,3 @@
-
 FROM golang:1.18-alpine AS builder
 RUN apk update && apk add --no-cache make git gcc libc-dev linux-headers python3-dev
 WORKDIR /nucleus

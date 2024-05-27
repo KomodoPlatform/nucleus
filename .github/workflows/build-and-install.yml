@@ -24,3 +24,29 @@ jobs:
 
       - name: Install
         run: make install
+
+  container-build-and-push:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Calculate commit hash for PR commit
+        if: github.event_name == 'pull_request'
+        run: echo "COMMIT_HASH=$(git rev-parse --short=7 ${{ github.event.pull_request.head.sha }})" >> $GITHUB_ENV
+
+      - name: Calculate commit hash for merge commit
+        if: github.event_name != 'pull_request'
+        run: echo "COMMIT_HASH=$(git rev-parse --short=7 HEAD)" >> $GITHUB_ENV
+
+      - name: Login to dockerhub
+        run: docker login --username ${{ secrets.DOCKER_HUB_USERNAME }} --password ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}  docker.io
+
+      - name: Build and Push
+        run: |
+          docker build -t komodoofficial/nucleusd:"$COMMIT_HASH" -t komodoofficial/nucleusd:latest -f ./Dockerfile .
+          # Here we push two images. "latest" image gets overridden with each
+          # push and $COMMIT_HASH is a constant image so we can use a specific
+          # build in container environments if needed (usually for debugging purposes).
+          docker push komodoofficial/nucleusd:"$COMMIT_HASH"
+          docker push komodoofficial/nucleusd:latest

@@ -47,10 +47,16 @@ def init_genesis():
     process_1 = subprocess.run([NUCLEUS_BIN, "keys", "show", "-a", PAIR2, "--keyring-backend=test",
                                "--home="+NUCLEUS_SYSROOT], capture_output=True, text=True, encoding="utf-8")
     subprocess.run([NUCLEUS_BIN, "add-genesis-account", process_1.stdout.strip(),
-                   "10000000000unucl", "--home="+NUCLEUS_SYSROOT])
+                   "", "--home="+NUCLEUS_SYSROOT])
 
     subprocess.run([NUCLEUS_BIN, "add-genesis-account", DEV_ADDRESS,
-                   "10000000000unucl", "--home="+NUCLEUS_SYSROOT])
+                   "10000000000unucl,10000000000ibc/F7F28FF3C09024A0225EDBBDB207E5872D2B4EF2FB874FE47B05EF9C9A7D211C", "--home="+NUCLEUS_SYSROOT])
+    subprocess.run([NUCLEUS_BIN, "add-genesis-account", DEV_ADDRESS2,
+                   "10000000000unucl,10000000000ibc/F7F28FF3C09024A0225EDBBDB207E5872D2B4EF2FB874FE47B05EF9C9A7D211C", "--home="+NUCLEUS_SYSROOT])
+    subprocess.run([NUCLEUS_BIN, "add-genesis-account", DEV_ADDRESS3,
+                   "10000000000unucl,10000000000ibc/F7F28FF3C09024A0225EDBBDB207E5872D2B4EF2FB874FE47B05EF9C9A7D211C", "--home="+NUCLEUS_SYSROOT])
+    subprocess.run([NUCLEUS_BIN, "add-genesis-account", DEV_ADDRESS4,
+                   "10000000000unucl,10000000000ibc/F7F28FF3C09024A0225EDBBDB207E5872D2B4EF2FB874FE47B05EF9C9A7D211C", "--home="+NUCLEUS_SYSROOT])
 
     subprocess.run([NUCLEUS_BIN,
                     "gentx",
@@ -133,12 +139,15 @@ def add_htlc_genesis_config(data):
 
 if __name__ == "__main__":
 
-    CHAIN_ID = "nucleus-1"
+    CHAIN_ID = "nucleus-testnet"
     PAIR1 = "alice"
     PAIR2 = "bob"
     MONIKER = "nimda"
 
-    DEV_ADDRESS = "nuc1llp0f6qxemgh4g4m5ewk0ew0hxj76avukahzwu"
+    DEV_ADDRESS = "nuc150evuj4j7k9kgu38e453jdv9m3u0ft2n4fgzfr"
+    DEV_ADDRESS2 = "nuc1qqwg79cpe2c9jtxklu8lxl30hj3qfzd3rzgs3x"
+    DEV_ADDRESS3 = "nuc1e0rx87mdj79zejewuc4jg7ql9ud2286g7x3t2z"
+    DEV_ADDRESS4 = "nuc1erfnkjsmalkwtvj44qnfr2drfzdt4n9ledw63y"
 
     PAIR1_MNEMONIC = "explain chalk inch snake snack fade news bus horn grant stereo surface panic sister absurd lens speed never inhale element junk senior bubble return"
     # PAIR1_ADDRESS="nuc15d4sf4z6y0vk9dnum8yzkvr9c3wq4q89hzvgjk"

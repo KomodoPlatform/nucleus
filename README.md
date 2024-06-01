@@ -56,3 +56,4 @@ Check `init.py` bootstrapping script and update/add any configuration you want. 
   WantedBy=multi-user.target
   ```
   
+For further information, see the [whitepaper](./WHITEPAPER.md).

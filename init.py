@@ -57,6 +57,8 @@ def init_genesis():
                    "10000000000unucl,10000000000ibc/F7F28FF3C09024A0225EDBBDB207E5872D2B4EF2FB874FE47B05EF9C9A7D211C", "--home="+NUCLEUS_SYSROOT])
     subprocess.run([NUCLEUS_BIN, "add-genesis-account", DEV_ADDRESS4,
                    "10000000000unucl,10000000000ibc/F7F28FF3C09024A0225EDBBDB207E5872D2B4EF2FB874FE47B05EF9C9A7D211C", "--home="+NUCLEUS_SYSROOT])
+    subprocess.run([NUCLEUS_BIN, "add-genesis-account", DEV_ADDRESS5,
+                   "10000000000unucl,10000000000ibc/F7F28FF3C09024A0225EDBBDB207E5872D2B4EF2FB874FE47B05EF9C9A7D211C", "--home="+NUCLEUS_SYSROOT])
 
     subprocess.run([NUCLEUS_BIN,
                     "gentx",
@@ -148,6 +150,7 @@ if __name__ == "__main__":
     DEV_ADDRESS2 = "nuc1qqwg79cpe2c9jtxklu8lxl30hj3qfzd3rzgs3x"
     DEV_ADDRESS3 = "nuc1e0rx87mdj79zejewuc4jg7ql9ud2286g7x3t2z"
     DEV_ADDRESS4 = "nuc1erfnkjsmalkwtvj44qnfr2drfzdt4n9ledw63y"
+    DEV_ADDRESS5 = "nuc1z609g9z8ef4jlkcfgg36c2ljgcmna50l77n078"
 
     PAIR1_MNEMONIC = "explain chalk inch snake snack fade news bus horn grant stereo surface panic sister absurd lens speed never inhale element junk senior bubble return"
     # PAIR1_ADDRESS="nuc15d4sf4z6y0vk9dnum8yzkvr9c3wq4q89hzvgjk"

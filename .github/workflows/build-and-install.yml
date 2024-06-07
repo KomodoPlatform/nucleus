@@ -46,6 +46,27 @@ jobs:
           docker build -t komodoofficial/gaiad:latest -f ./Dockerfile .
           docker push komodoofficial/gaiad:latest
 
+  push-ibc-relayer:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Calculate commit hash for PR commit
+        run: echo "COMMIT_HASH=$(git rev-parse --short=7 ${{ github.event.pull_request.head.sha }})" >> $GITHUB_ENV
+
+      - name: Calculate commit hash for merge commit
+        run: echo "COMMIT_HASH=$(git rev-parse --short=7 HEAD)" >> $GITHUB_ENV
+
+      - name: Login to dockerhub
+        run: docker login --username ${{ secrets.DOCKER_HUB_USERNAME }} --password ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}  docker.io
+
+      - name: Build and Push
+        run: |
+          git clone https://github.com/cosmos/relayer
+          cd relayer
+          docker build -t komodoofficial/ibc-relayer:latest -f ./Dockerfile .
+          docker push komodoofficial/ibc-relayer:latest
+
   container-build-and-push:
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest

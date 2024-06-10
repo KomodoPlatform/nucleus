@@ -64,6 +64,7 @@ jobs:
         run: |
           git clone https://github.com/cosmos/relayer
           cd relayer
+          echo 'ENTRYPOINT ["rly", "start"]' >> ./Dockerfile
           docker build -t komodoofficial/ibc-relayer:latest -f ./Dockerfile .
           docker push komodoofficial/ibc-relayer:latest
 

@@ -23,3 +23,7 @@
 - Your pull request will typically be reviewed by the project maintainers within a week, with a maximum review time of two weeks.
 - Be prepared to address any feedback or suggestions from reviewers.
 
+## Feature Request and Bug Reports
+
+To report bugs, suggest improvements or request new features, kindly open a [GitHub issue](https://github.com/KomodoPlatform/nucleus/issues/new/choose).
+

@@ -6,7 +6,7 @@
 
 ## Contribution Rules
 
-1. There should be no linting and formatting warnings and every test should pass.
+1. There should be no linting and formatting warnings (`make check` can help you with that) and every test should pass.
 2. If possible, avoid adding new dependencies.
 3. Make sure to add test coverage for the new changes.
 4. Changes should be x86 and ARM compatible.

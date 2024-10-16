@@ -41,6 +41,10 @@ jobs:
 
       - name: Build and Push
         run: |
+          docker pull komodoofficial/gaiad:latest@sha256:3e322a09696f70aa1cc7966e3930223f34179a0c33371a4b78a62c4417c4beea
+          docker tag komodoofficial/gaiad:latest@sha256:3e322a09696f70aa1cc7966e3930223f34179a0c33371a4b78a62c4417c4beea komodoofficial/gaiad:kdf-ci
+          docker push komodoofficial/gaiad:kdf-ci
+
           git clone https://github.com/cosmos/gaia
           cd gaia
           docker build -t komodoofficial/gaiad:latest -f ./Dockerfile .
@@ -64,10 +68,11 @@ jobs:
         run: |
           git clone https://github.com/cosmos/relayer
           cd relayer
+          git checkout df42391dd3ab04fce238adb7b4112d7bd10fa63c
           rm ./Dockerfile
-          cp ../Dockerfile.ibc ./Dockerfile
-          docker build -t komodoofficial/ibc-relayer:latest -f ./Dockerfile .
-          docker push komodoofficial/ibc-relayer:latest
+          cp ../Dockerfile.rly ./Dockerfile
+          docker build -t komodoofficial/ibc-relayer:kdf-ci -f ./Dockerfile .
+          docker push komodoofficial/ibc-relayer:kdf-ci
 
   container-build-and-push:
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
